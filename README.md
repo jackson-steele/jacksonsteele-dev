@@ -1,70 +1,121 @@
-# Getting Started with Create React App
+## Jackson Steele — Portfolio
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Modern portfolio built with Next.js (App Router) + Tailwind, with support for embedding built projects as static subdirectories under `public/<slug>/`.
 
-## Available Scripts
+### Getting started
 
-In the project directory, you can run:
+```bash
+npm install
+npm run dev
+```
 
-### `yarn start`
+Open http://localhost:3000
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Structure
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- `app/`: Next.js routes
+  - `/` homepage with contact
+  - `/projects` projects listing
+  - `/projects/[slug]` optional detail pages sourced from `data/projects.ts`
+- `public/<slug>/`: built, standalone apps (e.g., `public/rank-your-posterity/`)
+- `middleware.ts`: rewrites deep links like `/rank-your-posterity/*` to `/rank-your-posterity/index.html`
+- `scripts/copy-embedded-app.ts`: helper to copy a built app into `public/<slug>/`
+- `data/projects.ts`: the list of projects powering the listing and detail pages
 
-### `yarn test`
+### Add the Rank Your Posterity app
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1) Build the Vite app with base path set to `/rank-your-posterity/`.
 
-### `yarn build`
+In the Vite project (`rank-your-posterity`):
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```ts
+// vite.config.ts
+export default defineConfig({
+  base: '/rank-your-posterity/',
+  // ...other config
+})
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Then build:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+npm run build
+```
 
-### `yarn eject`
+2) Copy the `dist` output into this repo under `public/rank-your-posterity/`:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+npx ts-node scripts/copy-embedded-app.ts rank-your-posterity /absolute/path/to/rank-your-posterity/dist
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Alternatively, copy files manually to `public/rank-your-posterity/`.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+3) Ensure the project is listed in `data/projects.ts`:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```ts
+{
+  slug: 'rank-your-posterity',
+  title: 'Rank Your Posterity',
+  description: 'A React + TypeScript app to rank hypothetical descendants by traits.',
+  embedPath: '/rank-your-posterity/',
+  detailPath: '/projects/rank-your-posterity'
+}
+```
+
+4) Run the portfolio locally to verify:
+
+```bash
+npm run dev
+```
+
+Visit `http://localhost:3000/rank-your-posterity/` and navigate within the app. Deep links like `/rank-your-posterity/foo/bar` will load via `middleware.ts`.
+
+### Add future projects
+
+Repeat the same steps with a new slug:
+
+1) Build the project with `base: '/<slug>/'` if using Vite (or equivalent public path in other tools).
+2) Copy the built files into `public/<slug>/` (use the copy script or manual copy).
+3) Add an entry in `data/projects.ts` with `slug`, `title`, `description`, optional `embedPath` and `detailPath`.
+
+### Notes
+
+- The middleware’s SPA slugs list is maintained in `middleware.ts`. Add new slugs there to enable deep-link rewrites.
+- If your embedded app relies on client-side routing, ensure the correct base/publicPath so assets resolve under `/<slug>/`.
+
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+## Getting Started
+
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+To learn more about Next.js, take a look at the following resources:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-### Code Splitting
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Deploy on Vercel
 
-### Analyzing the Bundle Size
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
