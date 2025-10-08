@@ -32,6 +32,16 @@ jobs:
       - name: Build static site
         run: npm run build
 
+      - name: Add SPA 404 redirect for hash routing
+        run: |
+          mkdir -p out/rank-your-posterity
+          cat > out/rank-your-posterity/404.html <<'HTML'
+          <!DOCTYPE html>
+          <meta charset="utf-8">
+          <meta http-equiv="refresh" content="0; url=/rank-your-posterity/#/">
+          <link rel="canonical" href="/rank-your-posterity/#/">
+          HTML
+
       - name: Add .nojekyll
         run: echo > out/.nojekyll
 
@@ -53,5 +63,6 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
 
 

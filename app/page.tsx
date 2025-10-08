@@ -15,7 +15,7 @@ export default function Home() {
       <main className="flex-1">
         <section className="max-w-5xl mx-auto px-6 py-16 grid gap-8 md:grid-cols-3 items-center">
           <div className="md:col-span-2">
-            <h1 className="text-3xl md:text-5xl font-bold tracking-tight">Software Engineer & Builder</h1>
+            <h1 className="text-3xl md:text-5xl font-bold tracking-tight">Product Manager</h1>
             <p className="mt-4 text-base md:text-lg text-gray-600 dark:text-gray-300">
               I design and build modern web applications. Explore selected projects and embedded apps below.
             </p>
