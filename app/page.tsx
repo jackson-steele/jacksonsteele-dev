@@ -31,9 +31,9 @@ export default function Home() {
       <main>
         {/* Hero */}
         <section className="max-w-3xl mx-auto px-6 py-16">
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tight">Hi 👋 I'm Jackson.</h1>
+          <h1 className="text-5xl md:text-6xl font-bold tracking-tight">Hi 👋 I&apos;m Jackson.</h1>
           <h3 className="mt-6 text-xl md:text-2xl text-gray-600 font-light">
-            I'm a product manager, MBA student, software developer, and astrophysicist.
+            I&apos;m a product manager, MBA student, software developer, and astrophysicist.
           </h3>
         </section>
 
@@ -41,7 +41,7 @@ export default function Home() {
         <section className="max-w-3xl mx-auto px-6 py-16">
           <h2 className="text-sm uppercase tracking-wide text-gray-500 mb-8">About me</h2>
 
-          <p className="text-md mb-8">After studying physics at BYU, I spent three years as a software developer at Amazon. Now, I'm pursuing an MBA at the Kellogg School of Management. As a product manager, I help teams in three key areas.</p>
+          <p className="text-md mb-8">After studying physics at BYU, I spent three years as a software developer at Amazon. Now, I&apos;m pursuing an MBA at the Kellogg School of Management. As a product manager, I help teams in three key areas.</p>
 
           <div className="space-y-8">
             <div>
@@ -51,7 +51,7 @@ export default function Home() {
                   <span className="text-gray-400 group-open:rotate-180 transition-transform">⌄</span>
                 </summary>
                 <div className="mt-4 text-gray-600">
-                  <p><em>example of when I've done this</em></p>
+                  <p><em>example of when I&apos;ve done this</em></p>
                 </div>
               </details>
             </div>
@@ -63,7 +63,7 @@ export default function Home() {
                   <span className="text-gray-400 group-open:rotate-180 transition-transform">⌄</span>
                 </summary>
                 <div className="mt-4 text-gray-600">
-                  <p><em>example of when I've done this</em></p>
+                  <p><em>example of when I&apos;ve done this</em></p>
                 </div>
               </details>
             </div>
@@ -75,7 +75,7 @@ export default function Home() {
                   <span className="text-gray-400 group-open:rotate-180 transition-transform">⌄</span>
                 </summary>
                 <div className="mt-4 text-gray-600">
-                  <p><em>example of when I've done this</em></p>
+                  <p><em>example of when I&apos;ve done this</em></p>
                 </div>
               </details>
             </div>
