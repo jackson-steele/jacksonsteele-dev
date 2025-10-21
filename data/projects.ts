@@ -11,8 +11,8 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: "rank-your-posterity",
-    title: "Rank Your Posterity",
-    description: "A React + TypeScript app to rank hypothetical descendants by traits.",
+    title: "Heirarchy",
+    description: "A humorous webapp allowing grandparents to stack-rank their descendants, share the ranking on social media, and generate a legal will based on the ranking.",
     embedPath: "/rank-your-posterity/",
     detailPath: "/projects/rank-your-posterity",
   },

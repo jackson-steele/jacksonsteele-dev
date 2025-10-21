@@ -33,7 +33,8 @@ export default function Home() {
         <section className="max-w-3xl mx-auto px-6 py-16">
           <h1 className="text-5xl md:text-6xl font-bold tracking-tight">Hi 👋 I&apos;m Jackson.</h1>
           <h3 className="mt-6 text-xl md:text-2xl text-gray-600 font-light">
-            I&apos;m a product manager, MBA student, software developer, and astrophysicist.
+            {/* I&apos;m a product manager, MBA student, software developer, and astrophysicist. */}
+            Product manager, Kellogg MBA student, astrophysicist
           </h3>
         </section>
 
@@ -41,7 +42,8 @@ export default function Home() {
         <section className="max-w-3xl mx-auto px-6 py-16">
           <h2 className="text-sm uppercase tracking-wide text-gray-500 mb-8">About me</h2>
 
-          <p className="text-md mb-8">After studying physics at BYU, I spent three years as a software developer at Amazon. Now, I&apos;m pursuing an MBA at the Kellogg School of Management. As a product manager, I help teams in three key areas.</p>
+          {/* <p className="text-md mb-8">After studying physics at BYU, I spent three years as a software developer at Amazon. Now, I&apos;m pursuing an MBA at the Kellogg School of Management. As a product manager, I help teams in three key areas.</p> */}
+          <p className="text-md mb-8">With a background in software development and astrophysics, I bring a fresh problem-solving approach to building products. Here’s what you should know about me:</p>
 
           <div className="space-y-8">
             <div>
@@ -103,26 +105,20 @@ export default function Home() {
                   <h3 className="text-xl font-semibold">{p.title}</h3>
                   <p className="text-gray-600 mt-1">{p.description}</p>
                 </div>
-                <div className="mt-3">
+                <div className="mt-3 flex items-center gap-6">
                   {p.embedPath && (
                     <Link href={p.embedPath} className="text-sm text-gray-500 hover:text-gray-700 transition-colors">
-                      {p.embedPath.replace('/', '')}
+                      Try it
+                    </Link>
+                  )}
+                  {p.detailPath && (
+                    <Link href={p.detailPath} className="text-sm text-gray-500 hover:text-gray-700 transition-colors">
+                      Learn more →
                     </Link>
                   )}
                 </div>
               </div>
             ))}
-
-            {/* Placeholder project */}
-            <div className="py-4">
-              <div className="mb-2">
-                <h3 className="text-xl font-semibold">sample project</h3>
-                <p className="text-gray-600 mt-1"><em>sample project description</em></p>
-              </div>
-              <div className="mt-3">
-                <span className="text-sm text-gray-400">Coming soon</span>
-              </div>
-            </div>
           </div>
         </section>
 
