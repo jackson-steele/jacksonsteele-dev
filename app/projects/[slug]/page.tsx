@@ -20,7 +20,6 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
       <main>
         <section className="max-w-3xl mx-auto px-6 py-16">
           <h1 className="text-5xl md:text-6xl font-bold tracking-tight">{project.title}</h1>
-          <p className="mt-6 text-xl md:text-2xl text-gray-600 font-light">{project.description}</p>
           {project.embedPath && (
             <div className="mt-8">
               <Link 
@@ -29,6 +28,11 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
               >
                 Try it out
               </Link>
+            </div>
+          )}
+          {project.content && (
+            <div className="mt-12">
+              {project.content}
             </div>
           )}
         </section>
