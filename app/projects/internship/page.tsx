@@ -25,30 +25,37 @@ export default function InternshipPage() {
               
               <div className="space-y-6">
                 <div className="bg-gray-50 p-6 rounded-lg">
-                  <h3 className="text-xl font-semibold text-gray-800 mb-3">Research on Meal Plans</h3>
-                  <p className="text-gray-700 leading-relaxed">
+                  <h3 className="text-xl font-semibold text-gray-800 mb-3">Initial Research</h3>
+                  {/* <p className="text-gray-700 leading-relaxed">
                     I conducted comprehensive research on meal plans, analyzing market trends, customer needs, and competitive landscape to inform product strategy and development decisions.
+                  </p> */}
+
+                  <p className="text-gray-700 leading-relaxed">As a product management intern at IDeaS Revenue Solutions, a demand forecasting platform for hotels, I investigated years-old client feedback claiming that our software couldn&apos;t price meal plan add-ons effectively.</p>
+                  <p className="text-gray-700 leading-relaxed mt-3">Initial research suggested this was a non-issue. We had features for pricing add-ons, and no one had heard similar complaints. The prevailing theory was user error.</p>
+                  <p className="text-gray-700 leading-relaxed mt-3">I wasn&apos;t satisfied with this answer, so I mapped the complete user journey for setting up add-ons across different customer types. That&apos;s when I discovered the gap: hotels and all-inclusive resorts have vastly different revenue models, and we had built optimizations for each—but resorts with &quot;all-inclusive optional&quot; systems (common in EMEA) didn&apos;t fit either model. These customers were slipping through the cracks.</p>
+                  <p className="text-gray-700 leading-relaxed mt-3">I drafted a proposal for a third optimization strategy tailored to these hybrid resorts. The research revealed this would unlock 36% of the world&apos;s resorts we were currently unable to serve well, including a major enterprise client we were actively pitching.</p>
+
+                </div>
+                
+                <div className="bg-gray-50 p-6 rounded-lg">
+                  <h3 className="text-xl font-semibold text-gray-800 mb-3">Drafting Requirements</h3>
+                  <p className="text-gray-700 leading-relaxed">
+                    We had a completely new product that we were developing for a new target segment. I took ownership of drafting the requirements for a third-party data integration in this new project. This included using information from customer interviews to craft personas and understand user needs, as well as collaborating with the data provider to understand what was possible.
+                  </p>
+                  <p className="text-gray-700 leading-relaxed mt-3">This resulted in the creation of a BRD, including detailed user stories and acceptance criteria.</p>
+                </div>
+                
+                <div className="bg-gray-50 p-6 rounded-lg">
+                  <h3 className="text-xl font-semibold text-gray-800 mb-3">Development Epics</h3>
+                  <p className="text-gray-700 leading-relaxed">
+                    Another project had completed the requirements phase, and was moving into development. I created comprehensive epics for the engineering team, breaking the requirements down into manageable development tasks and ensuring clear communication between product and engineering teams.
                   </p>
                 </div>
                 
                 <div className="bg-gray-50 p-6 rounded-lg">
-                  <h3 className="text-xl font-semibold text-gray-800 mb-3">Requirements for Spotlight</h3>
+                  <h3 className="text-xl font-semibold text-gray-800 mb-3">Product Launch</h3>
                   <p className="text-gray-700 leading-relaxed">
-                    I created detailed requirements for Spotlight, working closely with stakeholders to define functionality, user stories, and acceptance criteria for this new product feature.
-                  </p>
-                </div>
-                
-                <div className="bg-gray-50 p-6 rounded-lg">
-                  <h3 className="text-xl font-semibold text-gray-800 mb-3">Epics for Contracted Allotments</h3>
-                  <p className="text-gray-700 leading-relaxed">
-                    I developed comprehensive epics for Contracted Allotments, breaking down complex features into manageable development tasks and ensuring clear communication between product and engineering teams.
-                  </p>
-                </div>
-                
-                <div className="bg-gray-50 p-6 rounded-lg">
-                  <h3 className="text-xl font-semibold text-gray-800 mb-3">Launch of Decision Configuration Module</h3>
-                  <p className="text-gray-700 leading-relaxed">
-                    I ran the launch of the new Decision Configuration Module, coordinating with enterprise clients, managing the pilot program, and ensuring successful rollout of this critical product feature.
+                    I ran the launch of a redesigned feature within our core product, starting with a phased pilot rollout to seven enterprise clients. This required me to coordinate with engineering, customer success, and marketing teams to ensure a smooth launch.
                   </p>
                 </div>
               </div>

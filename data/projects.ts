@@ -24,8 +24,8 @@ export const projects: Project[] = [
   },
   {
     slug: "neutrino-prd",
-    title: "Neutrino PRD",
-    description: "Neutrino connects science enthusiasts to content that is interactive and right-leveled. In Kellogg's core product management class, I developed the idea for Neutrino from scratch, culminating in a PRD and a pitch deck (check out the speaker notes in the .pptx version for the script).",
+    title: "Neutrino",
+    description: "Neutrino connects science enthusiasts to content that is interactive and right-leveled. In Kellogg's core product management class, I came up with the idea for Neutrino, did customer interviews, and created requirements, culminating in a PRD and a pitch deck.",
     content: neutrinoPrdContent,
     detailPath: "/projects/neutrino-prd",
   },
@@ -38,14 +38,14 @@ export const projects: Project[] = [
   {
     slug: "hidenn-ai",
     title: "HIDENN-AI",
-    description: "As part of my Kellogg curriculum, two other Kellogg students and I partnered with HIDENN-AI, a startup using AI to revolutionize mechanical engineering simulations, create a comprehensive GTM plan. This included analyzing the market size (TAM) and existing solutions, defining customer personas and unmet needs through customer interviews, and projecting costs and milestones. The final report is confidential, but I encourage you to check out their website below to learn more about them.",
+    description: "As part of my Kellogg curriculum, two other Kellogg students and I created a GTM plan for AI startup HIDENN-AI",
     content: hidennAiContent,
     detailPath: "/projects/hidenn-ai",
   },
   {
     slug: "astrophysics",
     title: "Astrophysics",
-    description: "Why do I call myself an astrophysicist? For most of my undergraduate degree I majored in Physics and Astronomy, where I conducted research and published several papers. Not only do I consider this a part of my personality, this is also important to my work style–my scientific approach to problem-solving, my focus on data, and my ability to explain technical concepts simply.",
+    description: "Why do I call myself an astrophysicist? The short answer is that I studied astrophysics in school, and I'm a coauthor on several astrophysics papers. Astrophysics has fundamentally shaped how I work. If you'd like to learn more, please click the link below.",
     detailPath: "/projects/astrophysics",
   },
 ];

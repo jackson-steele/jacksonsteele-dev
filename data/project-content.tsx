@@ -4,12 +4,12 @@ export const neutrinoPrdContent = (
   <div className="prose prose-lg max-w-none prose-slate">
     <h2 className="text-2xl font-bold text-gray-900 mb-4 mt-8 first:mt-0 border-b border-gray-200 pb-2">Project Overview</h2>
     <p className="text-gray-700 leading-relaxed mb-4">
-      Neutrino connects science enthusiasts to content that is interactive and right-leveled. In Kellogg's core product management class, I developed the idea for Neutrino from scratch, culminating in a PRD and a pitch deck.
+      Most science content today is either made for the scientifically-curious (science YouTube, pop science, etc.), students (textbooks and study helps) or career scientists (academic journals). Many science enthusiasts find this content either too simple or too complex. Neutrino fills this gap, connecting science enthusiasts to content that is interactive and right-leveled. In Kellogg's core product management class, I came up with the idea for Neutrino, did customer interviews, and created requirements, culminating in a PRD and a pitch deck..
     </p>
     
     <h2 className="text-2xl font-bold text-gray-900 mb-4 mt-8 border-b border-gray-200 pb-2">Deliverables</h2>
     <p className="text-gray-700 leading-relaxed mb-6">
-      Check out the deliverables in Google Drive, including the PRD and pitch deck with speaker notes for the script.
+      Check out the deliverables in Google Drive, including the PRD and pitch deck (with speaker notes for the script in the .pptx).
     </p>
     
     <div className="mt-8 p-6 bg-blue-50 rounded-lg">

@@ -18,17 +18,17 @@ export default function AstrophysicsPage() {
           <div className="mt-12">
             <div className="prose prose-lg max-w-none prose-slate">
               <p className="text-gray-700 leading-relaxed mb-6">
-                I spent the majority of my undergrad majoring in Physics and Astronomy, and I was deeply involved in that department as a student, teaching assistant, researcher, and club officer.
+                I spent the majority of my undergrad majoring in Physics and Astronomy before switching to Applied Physics near the end (which allowed me to take more computer science courses), and I was deeply involved in that department as a student, teaching assistant, researcher, and club officer.
               </p>
               
               <h2 className="text-2xl font-bold text-gray-900 mb-4 mt-8 first:mt-0 border-b border-gray-200 pb-2">Research Focus</h2>
               
                 <p className="text-gray-700 leading-relaxed mb-4">
-                  My research focused on our ability to figure out how far away galaxies are. This is a difficult problem to solve, and is important when we try to understand how these galaxies formed (which also influences our understanding of dark matter). The standard way to measure galaxy distance requires huge telescopes, which isn&apos;t feasible in most cases. We developed a new system that we believed would work on smaller telescopes at a fraction of the time and cost.
+                  My research focused on our ability to figure out how far away galaxies are. This is a difficult problem to solve, and is important when we try to understand how these galaxies formed (which also influences our understanding of dark matter). The standard way to measure galaxy distance is expensive and requires huge telescopes, which isn&apos;t feasible in most cases. We developed a new system that we believed would work on smaller telescopes at a fraction of the time and cost.
                 </p>
               
               <p className="text-gray-700 leading-relaxed mb-6">
-                For my contribution, I took archival data for hundreds of thousands of galaxies and simulated the data we would expect if we observed those galaxies using our new filters (this is where I learned SQL and Python). My results showed that we could find galaxy distance at 10x the accuracy of the next best low-cost method. As a result of this research, we invested to have the filters built and tested them out on real telescopes looking at real galaxies, and our observational results exactly matched my simulated results.
+                For my contribution, I took archival data for hundreds of thousands of galaxies and simulated the data we would get if we observed those galaxies using our new filters (this is actually where I first learned SQL and Python). My results showed that we could find galaxy distance at 10x the accuracy of the next best low-cost method. As a result of this research, we invested to have the filters built and tested them out on real telescopes looking at real galaxies, and our observational results exactly matched the simulated results.
               </p>
               
               <h2 className="text-2xl font-bold text-gray-900 mb-4 mt-8 border-b border-gray-200 pb-2">Physics Education Research</h2>
@@ -42,7 +42,7 @@ export default function AstrophysicsPage() {
               <div className="space-y-4 mb-6">
                 <div className="bg-gray-50 p-4 rounded-lg">
                   <h3 className="text-lg font-semibold text-gray-800 mb-2">Senior Thesis</h3>
-                  <p className="text-gray-700 mb-2">Comprehensive research on galaxy distance measurement methods</p>
+                  <p className="text-gray-700 mb-2">Simulated effects of using new filters to find galaxy distance on small telescopes</p>
                   <a 
                     href="https://drive.google.com/file/d/1CSEiiG-i913Uq1Dk9AEnLXzMMqP2Ft8z/view?usp=sharing" 
                     target="_blank" 
@@ -63,7 +63,7 @@ export default function AstrophysicsPage() {
                       rel="noopener noreferrer"
                       className="block text-blue-600 hover:text-blue-800 underline"
                     >
-                      Paper 1: Galaxy Distance Measurements →
+                      Paper 1: Photometric Redshifts of Emission-line Galaxies Using Ramp Filters →
                     </a>
                     <a 
                       href="https://iopscience.iop.org/article/10.3847/1538-4357/acd10c" 
@@ -71,7 +71,7 @@ export default function AstrophysicsPage() {
                       rel="noopener noreferrer"
                       className="block text-blue-600 hover:text-blue-800 underline"
                     >
-                      Paper 2: Advanced Filtering Techniques →
+                      Paper 2: Searching for Dwarf Hα Emission-line Galaxies within Voids. I. Survey Methods and First Observations →
                     </a>
                   </div>
                 </div>
