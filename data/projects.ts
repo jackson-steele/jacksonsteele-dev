@@ -1,5 +1,5 @@
 import React from "react";
-import { heirarchyContent, neutrinoPrdContent, hidennAiContent } from "./project-content";
+import { heirarchyContent, neutrinoPrdContent, hidennAiContent, astrophysicsContent } from "./project-content";
 
 export type Project = {
   slug: string;
@@ -46,6 +46,7 @@ export const projects: Project[] = [
     slug: "astrophysics",
     title: "Astrophysics",
     description: "Why do I call myself an astrophysicist? The short answer is that I studied astrophysics in school, and I'm a coauthor on several astrophysics papers. Astrophysics has fundamentally shaped how I work. If you'd like to learn more, please click the link below.",
+    content: astrophysicsContent,
     detailPath: "/projects/astrophysics",
   },
 ];

@@ -33,7 +33,6 @@ export default function Home() {
         <section className="max-w-3xl mx-auto px-6 py-16">
           <h1 className="text-5xl md:text-6xl font-bold tracking-tight">Hi 👋 I&apos;m Jackson.</h1>
           <h3 className="mt-6 text-xl md:text-2xl text-gray-600 font-light">
-            {/* I&apos;m a product manager, MBA student, software developer, and astrophysicist. */}
             Product manager, Kellogg MBA student, astrophysicist
           </h3>
         </section>
@@ -41,11 +40,22 @@ export default function Home() {
         {/* About me */}
         <section className="max-w-3xl mx-auto px-6 py-16">
           <h2 className="text-sm uppercase tracking-wide text-gray-500 mb-8">About me</h2>
-
-          {/* <p className="text-md mb-8">After studying physics at BYU, I spent three years as a software developer at Amazon. Now, I&apos;m pursuing an MBA at the Kellogg School of Management. As a product manager, I help teams in three key areas.</p> */}
-          {/* <p className="text-md mb-8">With a background in software development and astrophysics, I bring a fresh problem-solving approach to building products. Here’s what you should know about me:</p> */}
-
           <div className="space-y-8">
+            <div>
+              <details className="group">
+                <summary className="cursor-pointer list-none select-none flex items-center justify-between text-xl font-semibold mb-3">
+                  <span>I make technical decisions that non-technical stakeholders understand and trust</span>
+                  <span className="text-gray-400 group-open:rotate-180 transition-transform">⌄</span>
+                </summary>
+                <div className="mt-4 text-gray-600">
+                  <p>At Amazon Prime Air, I joined a cross-functional effort to enable drones to perform their own maintenance (software updates, log offloads, sensor calibrations, etc.). The project involved project managers focused on deployment timelines, hardware engineers concerned with drone safety, and technicians who would support the system in the field. The original technical plan would take 7 months, which didn&apos;t align with the business need.</p>
+                  <p className="mt-3">I was brought in to find a faster path. After analyzing the architecture, I saw we could simplify the approach and deliver the core functionality in 2 months, with a phased rollout of the remaining functionality later. Despite being dramatically faster than our previous plan, this approach required prioritizing some features over others, and I had to get stakeholders who spoke different languages and had different priorities to buy-in.</p>
+                  <p className="mt-3">I tailored my communication to each group. For product managers, I explained how the cost savings of shipping core features faster outweighed the downside of releasing features piecemeal. For hardware engineers, I walked through technical trade-offs and why the simplified architecture was just as robust. For technicians, I focused on operational simplicity and reduced maintenance burden. Rather than pushing one &quot;right answer,&quot; I made sure each team understood how the decision affected their world.</p>
+                  <p className="mt-3">The result was full alignment across teams despite competing concerns. We shipped on time in 2 months, unblocking the broader deployment timeline and enabling autonomous drone maintenance.</p>
+                </div>
+              </details>
+            </div>
+
             <div>
               <details className="group">
                 <summary className="cursor-pointer list-none select-none flex items-center justify-between text-xl font-semibold mb-3">
@@ -57,21 +67,6 @@ export default function Home() {
                   <p className="mt-3">Initial research suggested this was a non-issue. We had features for pricing add-ons, and no one had heard similar complaints. The prevailing theory was user error.</p>
                   <p className="mt-3">I wasn&apos;t satisfied with this answer, so I mapped the complete user journey for setting up add-ons across different customer types. That&apos;s when I discovered the gap: hotels and all-inclusive resorts have vastly different revenue models, and we had built optimizations for each—but resorts with &quot;all-inclusive optional&quot; systems (common in EMEA) didn&apos;t fit either model. These customers were slipping through the cracks.</p>
                   <p className="mt-3">I drafted a proposal for a third optimization strategy tailored to these hybrid resorts. The research revealed this would unlock 36% of the world&apos;s resorts we were currently unable to serve well, including a major enterprise client we were actively pitching.</p>
-                </div>
-              </details>
-            </div>
-
-            <div>
-              <details className="group">
-                <summary className="cursor-pointer list-none select-none flex items-center justify-between text-xl font-semibold mb-3">
-                  <span>I make technical decisions that non-technical stakeholders understand and trust</span>
-                  <span className="text-gray-400 group-open:rotate-180 transition-transform">⌄</span>
-                </summary>
-                <div className="mt-4 text-gray-600">
-                  <p>At Amazon Prime Air, I joined a cross-functional effort to enable drones to perform their own maintenance (software updates, log offloads, sensor calibrations, etc.). The project involved project managers focused on deployment timelines, hardware engineers concerned with drone safety, and technicians who would support the system in the field. The original technical plan would take 7 months, which didn&apos;t align with the business need.</p>
-                  <p className="mt-3">I was brought in to find a faster path. After analyzing the architecture, I saw we could simplify the approach and deliver the core functionality in 2 months, with a phased rollout of the remaining functionality later. Despite being dramatically faster than our previous plan, this approach required prioritizing some features over others, and I had to get stakeholders who spoke different languages and had different priorities to buy-in.</p>
-                  <p className="mt-3">I tailored my communication to each group. For product managers, I explained how the cost savings of shipping core features faster outweighed the downside of releasing features piecemeal. For hardware engineers, I walked through technical trade-offs and why the simplified architecture was just as robust. For technicians, I focused on operational simplicity and reduced maintenance burden. Rather than pushing one &quot;right answer,&quot; I made sure each team understood how the decision affected their world.</p>
-                  <p className="mt-3">The result was full alignment across teams with competing concerns. We shipped on time in 2 months, unblocking the broader deployment timeline and enabling autonomous drone maintenance.</p>
                 </div>
               </details>
             </div>
