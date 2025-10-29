@@ -1,5 +1,5 @@
 import React from "react";
-import { heirarchyContent, neutrinoPrdContent, hidennAiContent, astrophysicsContent } from "./project-content";
+import { heirarchyContent, neutrinoPrdContent, hidennAiContent, astrophysicsContent, internshipContent } from "./project-content";
 
 export type Project = {
   slug: string;
@@ -33,6 +33,7 @@ export const projects: Project[] = [
     slug: "internship",
     title: "Internship Stories",
     description: "Over the summer, I was a product manager intern for IDeaS Revenue Management Solutions, where I worked on four projects across the product development lifecycle: initial research, defining requirements, creating epics for developers, and running a pilot program with enterprise clients.",
+    content: internshipContent,
     detailPath: "/projects/internship",
   },
   {
