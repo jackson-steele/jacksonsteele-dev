@@ -9,11 +9,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Jackson Steele — Portfolio",
-  description: "Projects and embedded apps by Jackson Steele",
-  icons: {
-    icon: "/tab_icon.svg",
-  },
+  title: "Jackson Steele — Product Manager",
+  description: "Jackson Steele is a product manager, astrophysicist, and software engineer. Kellogg MBA student seeking PM roles starting Summer 2026.",
 };
 
 export default function RootLayout({

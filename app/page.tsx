@@ -1,18 +1,157 @@
-import Link from "next/link";
-import { projects } from "@/data/projects";
+"use client";
 
-export default function Home() {
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState, useRef } from "react";
+import Footer from "../components/Footer";
+
+const highlights = [
+  {
+    src: "/images/main/highlight-cards/software-engineer.png",
+    alt: "Software Engineer",
+    href: "/amazon",
+    lightbox: false,
+  },
+  {
+    src: "/images/main/highlight-cards/astrophysicist.png",
+    alt: "Astrophysicist",
+    href: "/astrophysics",
+    lightbox: false,
+  },
+  {
+    src: "/images/main/highlight-cards/product-manager-intern.png",
+    alt: "Product Manager Intern",
+    href: "/ideas",
+    lightbox: false,
+  },
+  {
+    src: "/images/main/highlight-cards/friends.png",
+    alt: "Socially Competent",
+    href: null,
+    lightbox: true,
+  },
+  {
+    src: "/images/main/highlight-cards/personal-projects.png",
+    alt: "Personal Projects",
+    href: "/personal-projects",
+    lightbox: false,
+  },
+  {
+    src: "/images/main/highlight-cards/prd-pitch-deck.png",
+    alt: "PRD + Pitch Deck",
+    href: "/mba#project-2-neutrino",
+    lightbox: false,
+  },
+  {
+    src: "/images/main/highlight-cards/go-to-market-plan.png",
+    alt: "Go To Market Plan",
+    href: "/mba#project-1-creating-a-gtm-plan-for-ai-startup-hidenn-ai",
+    lightbox: false,
+  },
+];
+
+const logos = [
+  { src: "/images/main/logos/kellogg.png", alt: "Kellogg School of Management", href: "/mba" },
+  { src: "/images/main/logos/byu.png", alt: "Brigham Young University", href: "/astrophysics" },
+  { src: "/images/main/logos/ideas.png", alt: "IDeaS Revenue Solutions", href: "/ideas" },
+  { src: "/images/main/logos/amazon.png", alt: "Amazon", href: "/amazon" },
+];
+
+const desktopCols = [
+  [highlights[0], highlights[3], highlights[6]],
+  [highlights[1], highlights[4]],
+  [highlights[2], highlights[5]],
+];
+
+function TypewriterHireMe() {
+  const [displayed, setDisplayed] = useState("");
+  const targetText = "Hire Me";
+  const started = useRef(false);
+  const ref = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !started.current) {
+          started.current = true;
+          let i = 0;
+          const interval = setInterval(() => {
+            if (i < targetText.length) {
+              setDisplayed(targetText.slice(0, i + 1));
+              i++;
+            } else {
+              clearInterval(interval);
+            }
+          }, 120);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="min-h-screen">
-      <header>
-        <div className="max-w-3xl mx-auto px-6 py-8 flex items-center justify-between">
-          <Link href="/" className="text-lg font-semibold">Jackson Steele</Link>
-          <nav className="flex items-center gap-6 text-sm">
-          <a
+    <h2 ref={ref} className="font-bold text-black" style={{ fontSize: "56px" }}>
+      {displayed}
+      <span className="typewriter-cursor" style={{ color: "black", marginLeft: "2px" }}>
+        |
+      </span>
+    </h2>
+  );
+}
+
+export default function HomePage() {
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxSrc, setLightboxSrc] = useState("");
+
+  function openLightbox(src: string) {
+    setLightboxSrc(src);
+    setLightboxOpen(true);
+  }
+  function closeLightbox() {
+    setLightboxOpen(false);
+    setLightboxSrc("");
+  }
+
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") closeLightbox();
+    }
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  return (
+    <main className="min-h-screen bg-white">
+      {/* Hero */}
+      <section className="relative w-full min-h-[85vh] flex items-center justify-center overflow-hidden">
+        <Image
+          src="/images/main/cover-photo.jpg"
+          alt="Jackson Steele cover photo"
+          fill
+          priority
+          className="object-cover object-bottom"
+        />
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="relative z-10 flex flex-col items-center text-center gap-6 px-6">
+          <h1 style={{ color: "white" }}>Jackson Steele</h1>
+          <p className="font-medium" style={{ fontSize: "28px", color: "white" }}>
+            Product Manager
+          </p>
+          <div className="flex flex-wrap gap-3 justify-center">
+            <a href="mailto:jacksonsteele8@gmail.com" className="btn btn-white">
+              Contact Me
+            </a>
+            <a
               href="https://www.linkedin.com/in/jackson-steele/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:underline"
+              className="btn btn-white-outline"
             >
               LinkedIn
             </a>
@@ -20,146 +159,215 @@ export default function Home() {
               href="/Jackson%20Steele%20Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:underline"
+              className="btn btn-white-outline"
             >
               Resume
             </a>
-            <a href="mailto:jacksonsteele8@gmail.com" className="hover:underline">Contact</a>
-          </nav>
+          </div>
         </div>
-      </header>
-      <main>
-        {/* Hero */}
-        <section className="max-w-3xl mx-auto px-6 py-16">
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tight">Hi 👋 I&apos;m Jackson.</h1>
-          <h3 className="mt-6 text-xl md:text-2xl text-gray-600 font-light">
-            Product manager, Kellogg MBA student, astrophysicist
-          </h3>
-        </section>
+      </section>
 
-        {/* About me */}
-        <section className="max-w-3xl mx-auto px-6 py-16">
-          <h2 className="text-sm uppercase tracking-wide text-gray-500 mb-8">About me</h2>
-          <div className="space-y-8">
+      {/* Feature Section */}
+      <section className="w-full bg-white py-20 px-6">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-12 items-start">
+          <div className="flex-1">
+            <h1 className="font-extrabold tracking-[-0.02em]" style={{ fontSize: "48px", lineHeight: "1.3" }}>
+              I think like an astrophysicist, build like an engineer, and somehow still get invited to lunch
+            </h1>
+          </div>
+          <div className="flex-1 flex flex-col gap-8">
             <div>
-              <details className="group">
-                <summary className="cursor-pointer list-none select-none flex items-center justify-between text-xl font-semibold mb-3">
-                  <span>I make technical decisions that non-technical stakeholders understand and trust</span>
-                  <span className="text-gray-400 group-open:rotate-180 transition-transform">⌄</span>
-                </summary>
-                <div className="mt-4 text-gray-600">
-                  <p>At Amazon Prime Air, I joined a cross-functional effort to enable drones to perform their own maintenance (software updates, log offloads, sensor calibrations, etc.). The project involved project managers focused on deployment timelines, hardware engineers concerned with drone safety, and technicians who would support the system in the field. The original technical plan would take 7 months, which didn&apos;t align with the business need.</p>
-                  <p className="mt-3">I was brought in to find a faster path. After analyzing the architecture, I saw we could simplify the approach and deliver the core functionality in 2 months, with a phased rollout of the remaining functionality later. Despite being dramatically faster than our previous plan, this approach required prioritizing some features over others, and I had to get stakeholders who spoke different languages and had different priorities to buy-in.</p>
-                  <p className="mt-3">I tailored my communication to each group. For product managers, I explained how the cost savings of shipping core features faster outweighed the downside of releasing features piecemeal. For hardware engineers, I walked through technical trade-offs and why the simplified architecture was just as robust. For technicians, I focused on operational simplicity and reduced maintenance burden. Rather than pushing one &quot;right answer,&quot; I made sure each team understood how the decision affected their world.</p>
-                  <p className="mt-3">The result was full alignment across teams despite competing concerns. We shipped on time in 2 months, unblocking the broader deployment timeline and enabling autonomous drone maintenance.</p>
-                </div>
-              </details>
+              <h5>Astrophysics Problem-Solver</h5>
+              <p style={{ color: "rgba(0,0,0,0.7)", fontSize: "20px" }}>
+                As an astrophysicist, I learned to tackle galaxy-scale problems by decomposing them into bite-sized chunks that I can solve using data and experiments.
+              </p>
             </div>
-
             <div>
-              <details className="group">
-                <summary className="cursor-pointer list-none select-none flex items-center justify-between text-xl font-semibold mb-3">
-                  <span>I turn ambiguous problems into shippable solutions</span>
-                  <span className="text-gray-400 group-open:rotate-180 transition-transform">⌄</span>
-                </summary>
-                <div className="mt-4 text-gray-600">
-                  <p>As a product management intern at IDeaS Revenue Solutions, a demand forecasting platform for hotels, I investigated years-old client feedback claiming that our software couldn&apos;t price meal plan add-ons effectively.</p>
-                  <p className="mt-3">Initial research suggested this was a non-issue. We had features for pricing add-ons, and no one had heard similar complaints. The prevailing theory was user error.</p>
-                  <p className="mt-3">I wasn&apos;t satisfied with this answer, so I mapped the complete user journey for setting up add-ons across different customer types. That&apos;s when I discovered the gap: hotels and all-inclusive resorts have vastly different revenue models, and we had built optimizations for each—but resorts with &quot;all-inclusive optional&quot; systems (common in EMEA) didn&apos;t fit either model. These customers were slipping through the cracks.</p>
-                  <p className="mt-3">I drafted a proposal for a third optimization strategy tailored to these hybrid resorts. The research revealed this would unlock 36% of the world&apos;s resorts we were currently unable to serve well, including a major enterprise client we were actively pitching.</p>
-                </div>
-              </details>
+              <h5>Proven Software Shipper</h5>
+              <p style={{ color: "rgba(0,0,0,0.7)", fontSize: "20px" }}>
+                As an Amazon software engineer working on drone delivery, I delivered results, even when our goals were ambitious and our team was under-resourced.
+              </p>
             </div>
-
             <div>
-              <details className="group">
-                <summary className="cursor-pointer list-none select-none flex items-center justify-between text-xl font-semibold mb-3">
-                  <span>I ship technical products that drive measurable business impact</span>
-                  <span className="text-gray-400 group-open:rotate-180 transition-transform">⌄</span>
-                </summary>
-                <div className="mt-4 text-gray-600">
-                  <p>At Amazon Prime Air, one of our top organizational goals was reducing drone downtime between flights to under three minutes. Drones represent massive fixed-cost investments, so maximizing flight time directly improves unit economics and profitability.</p>
-                  <p className="mt-3">The biggest bottleneck from my team was the post-flight inspection process. Every drone underwent both a manual visual check and an automated telemetry check, and these were tightly coupled–meaning one couldn&apos;t start until the other finished. This coupling was killing our cycle time.</p>
-                  <p className="mt-3">I led the project to decouple these checks. This required coordinating changes across multiple microservices and refactoring workflows throughout our codebase.</p>
-                  <p className="mt-3">As a result, average turnaround time was reduced by 25 seconds per flight. This seemingly small improvement had cascading effects—each launch pad could now operate with two drones instead of three (one flying, one on standby that could be inspected simultaneously), improving our capital efficiency by 33%. The change also reduced technician workload by 65 hours per month, freeing them to focus on higher-value maintenance.</p>
-                </div>
-              </details>
+              <h5>Will Ask About Your Weekend</h5>
+              <p style={{ color: "rgba(0,0,0,0.7)", fontSize: "20px" }}>
+                I love being around people, and I&apos;ve focused my MBA curriculum on how to create strong cultures. I remember people&apos;s interests and their kids&apos; names, and I&apos;ve even been invited to parties once or twice.
+              </p>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* About you */}
-        {/* <section className="max-w-3xl mx-auto px-6 py-16">
-          <h2 className="text-sm uppercase tracking-wide text-gray-500 mb-8">About you</h2>
-          <p className="text-lg mb-6">I'm looking for companies that excel in:</p>
-          <div className="space-y-3">
-            <h3 className="text-xl font-semibold">Speed and innovation</h3>
-            <h3 className="text-xl font-semibold">Kindness and authenticity</h3>
-            <h3 className="text-xl font-semibold">Customer experience</h3>
+      {/* Logos Row */}
+      <section className="w-full bg-gray-50 py-16 px-6">
+        <div className="max-w-5xl mx-auto">
+          <p className="text-center mb-10" style={{ fontSize: "20px", color: "rgba(0,0,0,0.6)" }}>
+            Where I&apos;ve been. Click to learn more.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-10">
+            {logos.map((logo) => (
+              <Link
+                key={logo.href}
+                href={logo.href}
+                className="flex items-center justify-center active:scale-[0.98] transition-transform"
+              >
+                <Image
+                  src={logo.src}
+                  alt={logo.alt}
+                  width={160}
+                  height={80}
+                  className="object-contain max-h-16 grayscale hover:grayscale-0 transition-all"
+                />
+              </Link>
+            ))}
           </div>
-        </section> */}
+        </div>
+      </section>
 
-        {/* Projects */}
-        <section className="max-w-3xl mx-auto px-6 py-16">
-          <h2 className="text-sm uppercase tracking-wide text-gray-500 mb-8">Projects</h2>
-          <div className="space-y-8">
-            {projects.map((p) => (
-              <div key={p.slug} className="py-4">
-                <div className="mb-2">
-                  <h3 className="text-xl font-semibold">{p.title}</h3>
-                  <p className="text-gray-600 mt-1">{p.description}</p>
-                </div>
-                <div className="mt-3 flex items-center gap-6">
-                  {p.embedPath && (
-                    <Link href={p.embedPath} className="text-sm text-gray-500 hover:text-gray-700 transition-colors">
-                      Try it
+      {/* Highlights Grid */}
+      <section className="w-full bg-white py-20 px-6">
+        <div className="max-w-6xl mx-auto">
+          <h3 className="mb-3">Highlights</h3>
+          <p className="mb-10" style={{ fontSize: "20px", color: "rgba(0,0,0,0.6)" }}>
+            Here are some of the things I&apos;ve done professionally, personally, and academically. Click to learn more.
+          </p>
+          {/* Desktop: explicit 3 flex columns for deterministic masonry order */}
+          <div className="hidden md:flex gap-4">
+            {desktopCols.map((col, ci) => (
+              <div key={ci} className="flex-1 flex flex-col gap-4">
+                {col.map((tile, i) => {
+                  const img = (
+                    <Image
+                      src={tile.src}
+                      alt={tile.alt}
+                      width={400}
+                      height={300}
+                      className="w-full h-auto rounded-2xl object-cover"
+                    />
+                  );
+                  if (tile.lightbox) {
+                    return (
+                      <button
+                        key={i}
+                        onClick={() => openLightbox(tile.src)}
+                        className="active:scale-[0.98] transition-transform rounded-2xl overflow-hidden cursor-pointer text-left w-full"
+                      >
+                        {img}
+                      </button>
+                    );
+                  }
+                  return (
+                    <Link
+                      key={i}
+                      href={tile.href!}
+                      className="active:scale-[0.98] transition-transform rounded-2xl overflow-hidden block"
+                    >
+                      {img}
                     </Link>
-                  )}
-                  {p.detailPath && (
-                    <Link href={p.detailPath} className="text-sm text-gray-500 hover:text-gray-700 transition-colors">
-                      Learn more →
-                    </Link>
-                  )}
-                </div>
+                  );
+                })}
               </div>
             ))}
           </div>
-        </section>
-
-        {/* Contact me */}
-        <section className="max-w-3xl mx-auto px-6 py-16">
-          <h2 className="text-sm uppercase tracking-wide text-gray-500 mb-8">Contact me</h2>
-          <div className="flex flex-wrap gap-3">
-            <a
-              href="mailto:jacksonsteele8@gmail.com"
-              className="px-4 py-2 rounded-md bg-black text-white hover:bg-gray-800 transition-colors"
-            >
-              Send me an email
-            </a>
-            <a
-              href="https://www.linkedin.com/in/jackson-steele/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-4 py-2 rounded-md border border-gray-300 hover:border-gray-400 transition-colors"
-            >
-              LinkedIn
-            </a>
-            <a
-              href="/Jackson%20Steele%20Resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-4 py-2 rounded-md border border-gray-300 hover:border-gray-400 transition-colors"
-            >
-              Resume
-            </a>
+          {/* Mobile stacked */}
+          <div className="flex flex-col gap-4 md:hidden">
+            {highlights.map((tile, i) => {
+              const img = (
+                <Image
+                  src={tile.src}
+                  alt={tile.alt}
+                  width={800}
+                  height={500}
+                  className="w-full h-auto rounded-2xl object-cover"
+                />
+              );
+              if (tile.lightbox) {
+                return (
+                  <button
+                    key={i}
+                    onClick={() => openLightbox(tile.src)}
+                    className="active:scale-[0.98] transition-transform rounded-2xl overflow-hidden cursor-pointer w-full text-left"
+                  >
+                    {img}
+                  </button>
+                );
+              }
+              return (
+                <Link
+                  key={i}
+                  href={tile.href!}
+                  className="active:scale-[0.98] transition-transform rounded-2xl overflow-hidden block"
+                >
+                  {img}
+                </Link>
+              );
+            })}
           </div>
-        </section>
-      </main>
-      <footer>
-        <div className="max-w-3xl mx-auto px-6 py-8 text-sm text-gray-500">
-          © {new Date().getFullYear()} Jackson Steele
         </div>
-      </footer>
-    </div>
+      </section>
+
+      {/* Hire Me CTA */}
+      <section className="w-full bg-white py-20 px-6">
+        <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-10">
+          <div className="flex-shrink-0">
+            <Image
+              src="/images/profile-picture.png"
+              alt="Jackson Steele"
+              width={300}
+              height={300}
+              className="object-cover"
+            />
+          </div>
+          <div className="flex flex-col gap-4">
+            <TypewriterHireMe />
+            <p style={{ fontSize: "20px", color: "rgba(0,0,0,0.6)" }}>
+              Product Manager roles starting Summer 2026
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <a href="mailto:jacksonsteele8@gmail.com" className="btn btn-primary">
+                Send me an email
+              </a>
+              <a
+                href="https://www.linkedin.com/in/jackson-steele/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-secondary"
+              >
+                Connect on LinkedIn
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+
+      {/* Lightbox */}
+      {lightboxOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80"
+          onClick={closeLightbox}
+        >
+          <div
+            className="relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={closeLightbox}
+              className="absolute top-2 right-4 text-white text-3xl font-bold z-10"
+              aria-label="Close"
+            >
+              ×
+            </button>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={lightboxSrc}
+              alt="Lightbox"
+              style={{ maxWidth: "90vw", maxHeight: "90vh", display: "block", borderRadius: "1rem" }}
+            />
+          </div>
+        </div>
+      )}
+    </main>
   );
 }
