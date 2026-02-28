@@ -1,0 +1,1627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Statistically Nearest Spider</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Forum&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/duotone/style.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #080c14;
+    --surface: rgba(255, 255, 255, 0.2);
+    --surface2: rgba(55, 55, 55, 0.2);
+    --amber: #f39c12;
+    --amber-rgb: 243, 156, 18;
+    --amber-dim: #774c07;
+    --red: #e63946;
+    --red-dim: #5a1a1f;
+    --text: #e8edf5;
+    --text-sec: #c9c9c9;
+    --text-dim: #909090;
+    --border: #3b3b3b;
+    --green: #2ecc71;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Background photo + gradient */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url('web.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.35) contrast(1.2);
+    opacity: 0.9;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at 20% 50%, rgba(255, 201, 74, 0.1) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(230,57,70,0.1) 0%, transparent 50%),
+                linear-gradient(180deg, var(--bg) 0%, #050810 100%);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .content-wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem 4rem;
+  }
+
+  /* HEADER */
+  header {
+    text-align: center;
+    padding: 3rem 1rem 2rem;
+  }
+
+  header h1 {
+    font-family: 'Forum', serif;
+    font-size: clamp(1.6rem, 5vw, 2.8rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    line-height: 1.1;
+  }
+
+  header h1 span {
+    color: var(--amber);
+  }
+
+  header p.tagline {
+    font-size: 0.9rem;
+    color: var(--text-sec);
+    margin-top: 0.5rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  /* HERO CARDS */
+  .hero-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  @media (max-width: 500px) {
+    .hero-cards { grid-template-columns: 1fr; }
+  }
+
+  .stat-card {
+    background: var(--surface);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); 
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .stat-card.amber::before { background: linear-gradient(90deg, transparent, var(--amber), transparent); }
+  .stat-card.red::before  { background: linear-gradient(90deg, transparent, var(--red), transparent); }
+
+  .stat-card.amber { border-color: var(--amber-dim); }
+  .stat-card.red  { border-color: var(--red-dim); }
+
+  .stat-card .label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-sec);
+    margin-bottom: 0.4rem;
+  }
+
+  .stat-card.amber .label { color: var(--amber); }
+  .stat-card.red  .label { color: var(--red); }
+
+  .stat-card .big-num {
+    font-family: 'Forum', serif;
+    font-size: clamp(2.8rem, 9vw, 5.5rem);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.01em;
+    min-height: 1.2em;
+    display: flex;
+    align-items: baseline;
+    gap: 0.15em;
+  }
+
+  .stat-card.amber .big-num { color: var(--amber); }
+  .stat-card.red  .big-num { color: var(--red); }
+
+  .stat-card .big-num .unit {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.35em;
+    font-weight: 400;
+    color: var(--text-sec);
+    letter-spacing: 0.05em;
+    align-self: flex-end;
+    padding-bottom: 0.1em;
+  }
+
+  .stat-card .sub {
+    font-size: 0.75rem;
+    color: var(--text-sec);
+    margin-top: 0.5rem;
+    line-height: 1.4;
+  }
+
+  .stat-card .meaning {
+    font-size: 0.7rem;
+    font-style: italic;
+    color: var(--text-dim);
+    margin-top: 0.3rem;
+  }
+
+  /* Skeleton shimmer */
+  .shimmer {
+    background: linear-gradient(90deg, var(--surface) 25%, var(--surface2) 50%, var(--surface) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 8px;
+    height: 1.2em;
+  }
+
+  @keyframes shimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  /* CONTEXT BAR */
+  .context-bar {
+    background: var(--surface);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); 
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 0.9rem 1.2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    font-size: 0.82rem;
+  }
+
+  .context-item {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--text-sec);
+  }
+
+  .context-item .icon { font-size: 1.1rem; vertical-align: middle; color: var(--text-sec); }
+  .context-item .val  { color: var(--text); font-weight: 500; }
+
+  .context-bar select {
+    background: var(--surface2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); 
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    padding: 0.3rem 0.5rem;
+    cursor: pointer;
+    outline: none;
+    max-width: 180px;
+  }
+
+  .context-bar select:focus { border-color: var(--amber); }
+
+  .context-bar select option { background: var(--surface); }
+
+  /* LOCATION STATUS */
+  #location-status {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-sec);
+    margin: -0.5rem 0 1rem;
+    min-height: 1.2em;
+    transition: color 0.3s;
+  }
+
+  #location-status.error { color: var(--red); }
+
+  /* MANUAL STATE PICKER */
+  #manual-picker {
+    display: none;
+    background: var(--surface);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); 
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  #manual-picker p {
+    font-size: 0.85rem;
+    color: var(--text-sec);
+    margin-bottom: 0.75rem;
+  }
+
+  #manual-picker select {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    outline: none;
+  }
+
+  #manual-picker select:focus { border-color: var(--amber); }
+
+  /* SVG WEB */
+  .web-section {
+    margin: 1.5rem 0;
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+  #spider-web {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    filter: drop-shadow(0 0 20px rgba(243, 156, 18,0.15));
+  }
+
+  @keyframes webPulse {
+    0%, 100% { opacity: 0.5; filter: drop-shadow(0 0 15px rgba(var(--amber-rgb),0.1)); }
+    50%       { opacity: 0.75; filter: drop-shadow(0 0 30px rgba(var(--amber-rgb),0.25)); }
+  }
+
+  #spider-web { animation: webPulse 4s ease-in-out infinite; }
+
+  /* Spider crawl dot */
+  .spider-dot {
+    r: 4;
+    fill: var(--amber);
+    filter: drop-shadow(0 0 4px var(--amber));
+    animation: spiderCrawl 12s linear infinite;
+    offset-path: none; /* set via JS */
+  }
+
+  /* ACCORDION */
+  .accordion {
+    background: var(--surface);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); 
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+  }
+
+  .accordion summary {
+    padding: 1rem 1.2rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    user-select: none;
+    list-style: none;
+    transition: background 0.2s;
+  }
+
+  .accordion summary::-webkit-details-marker { display: none; }
+  .accordion summary:hover { background: var(--surface2); }
+
+  .accordion summary::after {
+    content: '›';
+    margin-left: auto;
+    font-size: 1.2rem;
+    transition: transform 0.3s;
+    color: var(--text-sec);
+  }
+
+  .accordion[open] summary::after { transform: rotate(90deg); }
+
+  .accordion-body {
+    padding: 0 1.2rem 1.2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .formula-line {
+    font-family: 'Forum', serif;
+    font-size: 0.82rem;
+    color: var(--text-sec);
+    line-height: 2;
+  }
+
+  .formula-line .hl { color: var(--amber); font-weight: 600; }
+  .formula-line .hl-r { color: var(--red); font-weight: 600; }
+
+  .math-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 1.5rem;
+    margin: 0.75rem 0;
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 480px) { .math-grid { grid-template-columns: 1fr; } }
+
+  .math-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.3rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .math-row .k { color: var(--text-sec); }
+  .math-row .v { color: var(--amber); font-weight: 600; font-family: 'Forum', serif; }
+
+  /* CALLOUT */
+  .callout {
+    background: var(--surface);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); 
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--amber);
+    border-radius: 0 12px 12px 0;
+    padding: 1rem 1.2rem;
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--text-sec);
+  }
+
+  .callout strong { color: var(--text); }
+  .callout.red-accent { border-left-color: var(--red); }
+  .callout.amber-accent { border-left-color: var(--amber); }
+
+  /* SEASONAL BAR */
+  .seasonal-section {
+    background: var(--surface);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); 
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .seasonal-section h3 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-sec);
+    margin-bottom: 0.75rem;
+  }
+
+  .month-bar {
+    position: relative;
+    height: 28px;
+    background: var(--border);
+    border-radius: 6px;
+    overflow: visible;
+    margin-bottom: 0.5rem;
+  }
+
+  .month-fill {
+    position: absolute;
+    top: 0; bottom: 0;
+    border-radius: 6px;
+    background: linear-gradient(90deg, rgba(var(--amber-rgb),0.2), rgba(var(--amber-rgb),0.5), rgba(var(--amber-rgb),0.2));
+    transition: left 0.5s, width 0.5s;
+  }
+
+  .month-current {
+    position: absolute;
+    top: -4px; bottom: -4px;
+    width: 2px;
+    background: var(--amber);
+    border-radius: 2px;
+    box-shadow: 0 0 8px var(--amber);
+    transition: left 0.5s;
+  }
+
+  .month-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.62rem;
+    color: var(--text-dim);
+    margin-top: 0.3rem;
+    padding: 0 1px;
+  }
+
+  .seasonal-caption {
+    font-size: 0.75rem;
+    color: var(--text-sec);
+    margin-top: 0.5rem;
+  }
+
+  /* SPECIES CARDS */
+  .section-title {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-sec);
+    margin: 1.5rem 0 0.75rem;
+  }
+
+  .species-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .species-card {
+    background: var(--surface);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); 
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .species-card:hover { border-color: var(--red-dim); transform: translateY(-1px); }
+
+  .species-card .sp-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.2rem;
+  }
+
+  .species-card .sp-sci {
+    font-size: 0.7rem;
+    font-style: italic;
+    color: var(--text-dim);
+    margin-bottom: 0.5rem;
+  }
+
+  .risk-badge {
+    display: inline-block;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.5rem;
+    border-radius: 20px;
+    margin-bottom: 0.5rem;
+  }
+
+  .risk-badge.high   { background: rgba(230,57,70,0.2);  color: var(--red); }
+  .risk-badge.medium { background: rgba(243,156,18,0.2); color: var(--amber); }
+  .risk-badge.low    { background: rgba(46,204,113,0.2); color: var(--green); }
+
+  .stars {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin-top: 0.3rem;
+  }
+
+  .stars .filled { color: var(--red); }
+
+  .sp-desc {
+    font-size: 0.72rem;
+    color: var(--text-sec);
+    line-height: 1.5;
+    margin-top: 0.4rem;
+  }
+
+  /* REFERENCE TABLE */
+  .ref-table-wrap {
+    background: var(--surface);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); 
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+
+  .ref-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.78rem;
+  }
+
+  .ref-table th {
+    background: var(--surface2);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); 
+    padding: 0.6rem 0.9rem;
+    text-align: left;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-sec);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ref-table td {
+    padding: 0.55rem 0.9rem;
+    color: var(--text-sec);
+    border-bottom: 1px solid #111d33;
+  }
+
+  .ref-table tr:last-child td { border-bottom: none; }
+  .ref-table tr.current-row td { background: rgba(var(--amber-rgb),0.07); color: var(--text); }
+  .ref-table tr.current-row td:first-child { border-left: 2px solid var(--amber); }
+  .ref-table .td-num { font-family: 'Forum', serif; color: var(--amber); }
+  .ref-table tr.current-row .td-num { color: var(--amber); }
+
+  /* FUN FACTS STRIP */
+  .facts-section { margin-bottom: 1.5rem; overflow: hidden; }
+
+  .facts-track {
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+
+  .facts-track::-webkit-scrollbar { height: 4px; }
+  .facts-track::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .fact-chip {
+    flex-shrink: 0;
+    background: var(--surface);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); 
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.6rem 0.9rem;
+    font-size: 0.75rem;
+    color: var(--text-sec);
+    line-height: 1.4;
+    max-width: 260px;
+    transition: border-color 0.2s;
+  }
+
+  .fact-chip:hover { border-color: var(--amber); color: var(--text); }
+
+  .fact-chip i { font-size: 0.9rem; vertical-align: middle; margin-right: 0.3em; opacity: 0.7; }
+
+  /* CONFIDENCE TOOLTIP */
+  .confidence-row {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    margin-bottom: 1rem;
+  }
+
+  .info-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    font-size: 0.6rem;
+    cursor: pointer;
+    color: var(--text-sec);
+    font-family: serif;
+    font-style: italic;
+    transition: border-color 0.2s;
+  }
+
+  .info-btn:hover { border-color: var(--amber); color: var(--amber); }
+
+  .tooltip-wrap {
+    position: relative;
+    display: inline-block;
+  }
+
+  .tooltip-text {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.7rem;
+    color: var(--text-sec);
+    white-space: nowrap;
+    z-index: 10;
+    line-height: 1.5;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+
+  .tooltip-wrap:hover .tooltip-text,
+  .tooltip-wrap:focus-within .tooltip-text { display: block; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 0;
+    text-align: center;
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    line-height: 1.8;
+  }
+
+  footer a { color: var(--text-sec); text-decoration: none; }
+  footer a:hover { color: var(--amber); }
+
+  /* COUNT-UP animation */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in { animation: fadeIn 0.4s ease forwards; }
+
+  /* LOADING STATE */
+  .num-shimmer {
+    display: inline-block;
+    width: 120px;
+    height: 1em;
+    vertical-align: middle;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    header h1 { font-size: 1.5rem; }
+    .context-bar { gap: 0.4rem 0.9rem; font-size: 0.78rem; }
+    .math-grid { font-size: 0.75rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="content-wrap">
+
+  <!-- HEADER -->
+  <header>
+    <h1>Statistically <span>Nearest</span> Spider</h1>
+  </header>
+
+  <!-- LOCATION STATUS -->
+  <div id="location-status">Detecting location…</div>
+
+  <!-- MANUAL PICKER (shown on geo deny) -->
+  <div id="manual-picker">
+    <p>Location access denied — select your state to continue:</p>
+    <select id="state-select">
+      <option value="">— Select State —</option>
+    </select>
+  </div>
+
+  <!-- HERO CARDS -->
+  <div class="hero-cards">
+    <div class="stat-card amber">
+      <div class="label">Nearest Spider</div>
+      <div class="big-num" id="nn-num">
+        <span id="nn-val">…</span>
+        <span class="unit" id="nn-unit"></span>
+      </div>
+      <div class="sub" id="nn-sub">Calculating…</div>
+      <div class="meaning" id="nn-meaning"></div>
+    </div>
+    <div class="stat-card red">
+      <div class="label">Nearest Dangerous Spider</div>
+      <div class="big-num" id="dn-num">
+        <span id="dn-val">…</span>
+        <span class="unit" id="dn-unit"></span>
+      </div>
+      <div class="sub" id="dn-sub">Calculating…</div>
+      <div class="meaning" id="dn-meaning"></div>
+    </div>
+  </div>
+
+  <!-- CONTEXT BAR -->
+  <div class="context-bar">
+    <div class="context-item">
+      <i class="ph-duotone ph-map-pin icon"></i>
+      <span class="val" id="ctx-location">Detecting…</span>
+    </div>
+    <div class="context-item">
+      <i class="ph-duotone ph-calendar icon"></i>
+      <span class="val" id="ctx-month">—</span>
+    </div>
+    <div class="context-item">
+      <i class="ph-duotone ph-clock icon"></i>
+      <span class="val" id="ctx-time">—</span>
+    </div>
+    <div class="context-item">
+      <i class="ph-duotone ph-leaf icon"></i>
+      <select id="env-select" title="Environment type">
+        <option value="">Loading…</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- CONFIDENCE -->
+  <div class="confidence-row">
+    <div class="tooltip-wrap">
+      <span class="info-btn" tabindex="0">i</span>
+      <div class="tooltip-text">Most estimates are LOW–MODERATE confidence.<br>This is educational, not a field survey.</div>
+    </div>
+    <span>Estimates are statistical averages based on published density research.</span>
+  </div>
+
+  <!-- SVG WEB -->
+  <div class="web-section">
+    <svg id="spider-web" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <g id="web-g" transform="translate(200,200)"></g>
+    </svg>
+  </div>
+
+  <!-- MATH ACCORDION -->
+  <details class="accordion" id="math-accordion">
+    <summary><i class="ph-duotone ph-sigma" style="font-size:1rem;vertical-align:middle;margin-right:0.4em;"></i>Show the math</summary>
+    <div class="accordion-body" id="math-body">
+      <div class="formula-line">
+        E[d] = <span class="hl">(0.5 / √ρ_eff)</span> × 0.7 &nbsp;&nbsp;[Clark–Evans 1954, R=0.7 correction]
+      </div>
+      <div class="formula-line" style="margin-top:0.5rem;">
+        ρ_eff = ρ_base × M<sub>region</sub> × M<sub>season</sub> × M<sub>time</sub>
+      </div>
+      <div class="math-grid" id="math-details">
+        <!-- filled by JS -->
+      </div>
+      <div class="formula-line" style="margin-top:0.5rem;">
+        → E[d] = <span class="hl" id="math-result">—</span>
+      </div>
+      <div class="formula-line" style="margin-top:0.25rem; font-size:0.75rem; color:var(--text-dim);">
+        Dangerous spider density uses same formula with <span class="hl-r">fraction × state_rating/4</span> scaling.
+      </div>
+    </div>
+  </details>
+
+  <!-- CALLOUT -->
+  <div class="callout" id="callout">
+    <strong id="callout-title">Loading…</strong>
+    <span id="callout-body"></span>
+  </div>
+
+  <!-- SEASONAL BAR -->
+  <div class="seasonal-section">
+    <h3>Spider Season</h3>
+    <div class="month-bar">
+      <div class="month-fill" id="season-fill"></div>
+      <div class="month-current" id="season-current"></div>
+    </div>
+    <div class="month-labels">
+      <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span>
+      <span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span>
+    </div>
+    <div class="seasonal-caption" id="seasonal-caption">—</div>
+  </div>
+
+  <!-- SPECIES CARDS -->
+  <div class="section-title">Dangerous Species in Your Area</div>
+  <div class="species-grid" id="species-grid">
+    <!-- filled by JS -->
+  </div>
+
+  <!-- REFERENCE TABLE -->
+  <div class="section-title">Density → Distance Reference</div>
+  <div class="ref-table-wrap">
+    <table class="ref-table" id="ref-table">
+      <thead>
+        <tr>
+          <th>Environment</th>
+          <th>Base Density (per m²)</th>
+          <th>Typical Distance</th>
+        </tr>
+      </thead>
+      <tbody id="ref-table-body">
+        <!-- filled by JS -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- FUN FACTS -->
+  <div class="section-title">Did You Know</div>
+  <div class="facts-section">
+    <div class="facts-track" id="facts-track">
+      <!-- filled by JS -->
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>Formula: Clark, P.J. &amp; Evans, F.C. (1954). "Distance to Nearest Neighbor as a Measure of Spatial Relationships in Populations." <em>Ecology</em>, 35(4), 445–453.</div>
+    <div style="margin-top:0.3rem;">Base densities from Turnbull (1973), Uetz (1979), Wise (1993), and Nyffeler &amp; Birkhofer (2017).</div>
+    <div style="margin-top:0.3rem; color:var(--text-dim);">⚠ This calculator is for educational and entertainment purposes. It does not constitute pest control or medical advice. If bitten by a spider, seek medical attention.</div>
+    <div style="margin-top:0.5rem;"><a href="https://github.com/jackson-steele/statistically-nearest-spider" target="_blank" rel="noopener">View Source</a></div>
+  </footer>
+
+</div><!-- /content-wrap -->
+
+<script>
+"use strict";
+
+// ─────────────────────────────────────────
+// DATA
+// ─────────────────────────────────────────
+
+const ENVIRONMENTS = [
+  { id: 'temperate_forest',   label: 'Temperate Forest',    density: 0.12,  indoor: false },
+  { id: 'tropical_forest',    label: 'Tropical Forest',     density: 0.50,  indoor: false },
+  { id: 'grassland',          label: 'Grassland / Prairie', density: 0.08,  indoor: false },
+  { id: 'lawn_suburban',      label: 'Suburban Lawn',       density: 0.05,  indoor: false },
+  { id: 'agricultural',       label: 'Agricultural Field',  density: 0.10,  indoor: false },
+  { id: 'desert',             label: 'Desert / Arid',       density: 0.02,  indoor: false },
+  { id: 'wetland',            label: 'Wetland / Marsh',     density: 0.20,  indoor: false },
+  { id: 'rocky_outcrop',      label: 'Rocky Outcrop',       density: 0.15,  indoor: false },
+  { id: 'beach_dune',         label: 'Beach / Dune',        density: 0.03,  indoor: false },
+  { id: 'suburban_house',     label: 'Suburban House',      density: 0.004, indoor: true  },
+  { id: 'apartment',          label: 'Apartment',           density: 0.002, indoor: true  },
+  { id: 'cellar_basement',    label: 'Cellar / Basement',   density: 0.012, indoor: true  },
+  { id: 'attic',              label: 'Attic / Crawlspace',  density: 0.010, indoor: true  },
+  { id: 'office_building',    label: 'Office Building',     density: 0.001, indoor: true  },
+  { id: 'barn_shed',          label: 'Barn / Shed',         density: 0.030, indoor: true  },
+  { id: 'urban_street',       label: 'Urban Street',        density: 0.008, indoor: false },
+  { id: 'riparian',           label: 'Riparian / Streamside', density: 0.18, indoor: false },
+];
+
+// Regional multipliers [outdoor, indoor]
+const REGIONS = {
+  pacific_northwest: { label: 'Pacific Northwest', out: 1.30, ind: 1.40 },
+  california:        { label: 'California',         out: 1.25, ind: 1.20 },
+  southwest:         { label: 'Southwest',           out: 1.15, ind: 1.10 },
+  rocky_mountain:    { label: 'Rocky Mountain',      out: 0.90, ind: 0.95 },
+  plains:            { label: 'Great Plains',        out: 0.85, ind: 0.90 },
+  midwest:           { label: 'Midwest',             out: 0.95, ind: 1.00 },
+  southeast:         { label: 'Southeast',           out: 1.40, ind: 1.30 },
+  northeast:         { label: 'Northeast',           out: 1.00, ind: 1.05 },
+  florida_hawaii:    { label: 'Florida / Hawaii',    out: 1.60, ind: 1.50 },
+  alaska:            { label: 'Alaska',              out: 0.60, ind: 0.70 },
+};
+
+const STATE_TO_REGION = {
+  AL:'southeast', AK:'alaska', AZ:'southwest', AR:'southeast', CA:'california',
+  CO:'rocky_mountain', CT:'northeast', DE:'northeast', FL:'florida_hawaii',
+  GA:'southeast', HI:'florida_hawaii', ID:'rocky_mountain', IL:'midwest',
+  IN:'midwest', IA:'plains', KS:'plains', KY:'southeast', LA:'southeast',
+  ME:'northeast', MD:'northeast', MA:'northeast', MI:'midwest', MN:'midwest',
+  MS:'southeast', MO:'midwest', MT:'rocky_mountain', NE:'plains', NV:'southwest',
+  NH:'northeast', NJ:'northeast', NM:'southwest', NY:'northeast', NC:'southeast',
+  ND:'plains', OH:'midwest', OK:'plains', OR:'pacific_northwest', PA:'northeast',
+  RI:'northeast', SC:'southeast', SD:'plains', TN:'southeast', TX:'southwest',
+  UT:'rocky_mountain', VT:'northeast', VA:'southeast', WA:'pacific_northwest',
+  WV:'southeast', WI:'midwest', WY:'rocky_mountain', DC:'northeast',
+};
+
+// State centroids (lat, lon) for manual picker latitude band
+const STATE_CENTROIDS = {
+  AL:[32.8,  -86.8], AK:[64.2, -153.4], AZ:[34.3, -111.1], AR:[34.9,  -92.4],
+  CA:[36.8, -119.4], CO:[39.0, -105.5], CT:[41.6,  -72.7], DE:[39.0,  -75.5],
+  FL:[27.8,  -81.7], GA:[32.7,  -83.4], HI:[20.2, -156.3], ID:[44.4, -114.6],
+  IL:[40.3,  -89.0], IN:[39.8,  -86.1], IA:[42.0,  -93.5], KS:[38.5,  -98.4],
+  KY:[37.7,  -84.9], LA:[31.2,  -91.8], ME:[45.4,  -69.0], MD:[39.0,  -76.8],
+  MA:[42.3,  -71.8], MI:[44.3,  -85.4], MN:[46.4,  -93.1], MS:[32.7,  -89.7],
+  MO:[38.5,  -92.3], MT:[47.0, -110.0], NE:[41.5,  -99.9], NV:[38.5, -117.1],
+  NH:[43.7,  -71.6], NJ:[40.2,  -74.7], NM:[34.3, -106.2], NY:[42.9,  -75.6],
+  NC:[35.6,  -79.8], ND:[47.5, -100.5], OH:[40.4,  -82.8], OK:[35.6,  -96.9],
+  OR:[44.0, -120.6], PA:[40.6,  -77.2], RI:[41.7,  -71.5], SC:[33.9,  -80.9],
+  SD:[44.4, -100.2], TN:[35.9,  -86.7], TX:[31.1,  -97.6], UT:[39.3, -111.1],
+  VT:[44.1,  -72.7], VA:[37.8,  -78.2], WA:[47.4, -121.5], WV:[38.6,  -80.6],
+  WI:[44.3,  -89.8], WY:[42.8, -107.6], DC:[38.9,  -77.0],
+};
+
+// Seasonal multipliers by latitude band (Jan–Dec, 0-indexed)
+const SEASONAL = {
+  northern:     [0.40, 0.45, 0.60, 0.80, 1.00, 1.20, 1.30, 1.25, 1.15, 0.90, 0.60, 0.45],
+  midLatitude:  [0.55, 0.60, 0.75, 0.90, 1.10, 1.25, 1.35, 1.30, 1.20, 1.00, 0.75, 0.60],
+  southern:     [0.70, 0.75, 0.85, 0.95, 1.15, 1.30, 1.35, 1.30, 1.20, 1.05, 0.85, 0.75],
+  floridaHawaii:[0.85, 0.90, 1.00, 1.05, 1.20, 1.35, 1.40, 1.40, 1.30, 1.15, 1.00, 0.90],
+  indoor:       [1.10, 1.05, 1.00, 0.95, 0.90, 0.85, 0.85, 0.88, 0.92, 1.00, 1.05, 1.10],
+};
+
+// Season peak months by band (for seasonal bar)
+const SEASON_PEAKS = {
+  northern:     { start: 5, end: 8 },  // Jun–Sep
+  midLatitude:  { start: 5, end: 9 },
+  southern:     { start: 5, end: 9 },
+  floridaHawaii:{ start: 5, end: 9 },
+  indoor:       { start: 0, end: 1 },  // Jan–Feb (peak indoor)
+};
+
+const TIME_OF_DAY = {
+  outdoor: { night: 1.20, dawnDusk: 1.00, day: 0.80 },
+  indoor:  { night: 1.15, dawnDusk: 1.00, day: 0.85 },
+};
+
+const DANGEROUS_SPIDERS = {
+  blackWidow: {
+    name: 'Black Widow', sciName: 'Latrodectus spp.',
+    risk: 'high', riskLabel: 'Medically Significant',
+    fraction: 0.008,
+    seasonal: [0.50, 0.55, 0.70, 0.90, 1.10, 1.30, 1.40, 1.35, 1.20, 0.95, 0.65, 0.50],
+    stateRating: {
+      AL:3, AK:0, AZ:4, AR:3, CA:4, CO:2, CT:1, DE:1, FL:3, GA:3, HI:1,
+      ID:2, IL:2, IN:2, IA:1, KS:3, KY:2, LA:3, ME:0, MD:2, MA:1, MI:1,
+      MN:1, MS:3, MO:3, MT:1, NE:2, NV:4, NH:0, NJ:1, NM:4, NY:1, NC:2,
+      ND:1, OH:2, OK:3, OR:2, PA:1, RI:0, SC:3, SD:2, TN:3, TX:4, UT:3,
+      VT:0, VA:2, WA:2, WV:2, WI:1, WY:2, DC:1,
+    },
+    desc: 'Jet-black with red hourglass. Found in dark corners, woodpiles, garages. Venom is neurotoxic; bites are rarely fatal in healthy adults.',
+    stars: 4,
+  },
+  brownRecluse: {
+    name: 'Brown Recluse', sciName: 'Loxosceles reclusa',
+    risk: 'high', riskLabel: 'Necrotic Risk',
+    fraction: 0.006,
+    seasonal: [0.55, 0.60, 0.70, 0.85, 1.10, 1.30, 1.35, 1.30, 1.15, 0.90, 0.65, 0.55],
+    stateRating: {
+      AL:3, AK:0, AZ:2, AR:4, CA:0, CO:1, CT:0, DE:0, FL:2, GA:2, HI:0,
+      ID:0, IL:3, IN:3, IA:2, KS:4, KY:3, LA:3, ME:0, MD:0, MA:0, MI:1,
+      MN:1, MS:3, MO:4, MT:0, NE:2, NV:0, NH:0, NJ:0, NM:2, NY:0, NC:1,
+      ND:0, OH:2, OK:4, OR:0, PA:0, RI:0, SC:2, SD:1, TN:4, TX:4, UT:1,
+      VT:0, VA:1, WA:0, WV:1, WI:1, WY:0, DC:0,
+    },
+    desc: 'Violin marking on cephalothorax. Favors dry, undisturbed spaces: closets, attics, cardboard boxes. Bite causes necrotic lesion in ~10% of cases.',
+    stars: 4,
+  },
+  yellowSac: {
+    name: 'Yellow Sac Spider', sciName: 'Cheiracanthium spp.',
+    risk: 'medium', riskLabel: 'Mild Venom',
+    fraction: 0.015,
+    seasonal: [0.60, 0.65, 0.80, 1.00, 1.15, 1.20, 1.25, 1.20, 1.10, 0.95, 0.75, 0.65],
+    stateRating: {
+      AL:3, AK:1, AZ:3, AR:3, CA:3, CO:2, CT:3, DE:3, FL:3, GA:3, HI:2,
+      ID:2, IL:3, IN:3, IA:3, KS:3, KY:3, LA:3, ME:2, MD:3, MA:3, MI:3,
+      MN:2, MS:3, MO:3, MT:2, NE:3, NV:3, NH:2, NJ:3, NM:3, NY:3, NC:3,
+      ND:2, OH:3, OK:3, OR:2, PA:3, RI:2, SC:3, SD:2, TN:3, TX:3, UT:2,
+      VT:2, VA:3, WA:2, WV:3, WI:2, WY:2, DC:3,
+    },
+    desc: 'Pale yellow, builds silken sac retreats in corners. Most common indoor dangerous spider. Bite causes mild to moderate local reaction.',
+    stars: 2,
+  },
+};
+
+const SPIDER_FACTS = [
+  "Spiders eat an estimated 400–800 million tons of prey annually — more than the entire human population's meat consumption.",
+  "There are ~45,000 known spider species. Scientists estimate ~120,000 total species exist.",
+  "The average house contains 30–100 spiders year-round, with most hidden in undisturbed corners.",
+  "Spiders are found on every continent except Antarctica.",
+  "A single acre of temperate meadow can contain over 2 million spiders.",
+  "Spider silk is stronger than steel by weight — a strand as thick as a pencil could stop a Boeing 747.",
+  "Most spiders are harmless; only ~200 species have ever caused human medical cases.",
+  "Jumping spiders can leap 50× their body length and have nearly 360° vision.",
+  "Spiders have been in continuous existence for over 380 million years.",
+  "In autumn, indoor spider encounters spike as males roam seeking mates — not because they come inside from cold.",
+  "Cellar spiders (Pholcidae) are the #1 most common house spider in the US by population.",
+  "Female black widows rarely bite unless pressed — most 'bites' occur when a spider is trapped in clothing.",
+];
+
+// ─────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────
+
+const state = {
+  lat: null, lon: null,
+  stateCode: null,
+  region: null,
+  latBand: null,
+  envId: 'suburban_house',
+  month: new Date().getMonth(),       // 0-indexed
+  hour: new Date().getHours(),
+  locationLabel: null,
+  loaded: false,
+};
+
+// ─────────────────────────────────────────
+// HELPERS
+// ─────────────────────────────────────────
+
+function getLatBand(lat, stateCode) {
+  if (stateCode === 'FL' || stateCode === 'HI' || lat < 28) return 'floridaHawaii';
+  if (lat > 42) return 'northern';
+  if (lat >= 35) return 'midLatitude';
+  return 'southern';
+}
+
+function getTimePeriod(hour) {
+  if (hour >= 6 && hour < 8)   return 'dawnDusk';
+  if (hour >= 8 && hour < 19)  return 'day';
+  if (hour >= 19 && hour < 21) return 'dawnDusk';
+  return 'night';
+}
+
+function formatDensity(rho) {
+  if (!rho || rho <= 0) return 'N/A';
+  const sqftPer = 10.764 / rho; // sq ft per spider
+
+  // Round to a human-friendly precision
+  let r;
+  if      (sqftPer < 20)   r = Math.round(sqftPer);
+  else if (sqftPer < 200)  r = Math.round(sqftPer / 5) * 5;
+  else if (sqftPer < 2000) r = Math.round(sqftPer / 25) * 25;
+  else                     r = Math.round(sqftPer / 500) * 500;
+
+  // Relatable size comparison
+  let ctx = '';
+  if      (sqftPer <   30) ctx = ' — a bathroom';
+  else if (sqftPer <   80) ctx = ' — a small bedroom';
+  else if (sqftPer <  150) ctx = ' — a living room';
+  else if (sqftPer <  400) ctx = ' — a studio apartment';
+  else if (sqftPer <  900) ctx = ' — a small house';
+  else if (sqftPer < 2000) ctx = ' — an average home';
+  else if (sqftPer < 5000) ctx = ' — a large home';
+
+  return `1 per ~${r.toLocaleString()} sq ft${ctx}`;
+}
+
+function calcNearestDistance(envId, region, latBand, month, hour) {
+  const env = ENVIRONMENTS.find(e => e.id === envId);
+  if (!env) return null;
+  const rData = REGIONS[region];
+  const rMult = env.indoor ? rData.ind : rData.out;
+  const sBand = env.indoor ? 'indoor' : latBand;
+  const sMult = SEASONAL[sBand][month];
+  const timePeriod = getTimePeriod(hour);
+  const tMult = env.indoor ? TIME_OF_DAY.indoor[timePeriod] : TIME_OF_DAY.outdoor[timePeriod];
+  const rhoEff = env.density * rMult * sMult * tMult;
+  if (rhoEff <= 0) return { meters: Infinity, rho: 0, rMult, sMult, tMult, env, timePeriod };
+  const meters = (0.5 / Math.sqrt(rhoEff)) * 0.7;
+  return { meters, rho: rhoEff, rMult, sMult, tMult, env, timePeriod, rhoBase: env.density };
+}
+
+function calcDangerousDistance(envId, stateCode, region, latBand, month, hour) {
+  const env = ENVIRONMENTS.find(e => e.id === envId);
+  if (!env || !stateCode) return null;
+  const rData = REGIONS[region];
+  const rMult = env.indoor ? rData.ind : rData.out;
+  const sBand = env.indoor ? 'indoor' : latBand;
+  const sMult = SEASONAL[sBand][month];
+  const timePeriod = getTimePeriod(hour);
+  const tMult = env.indoor ? TIME_OF_DAY.indoor[timePeriod] : TIME_OF_DAY.outdoor[timePeriod];
+  const rhoBase = env.density * rMult * sMult * tMult;
+
+  if (env.indoor) {
+    // Yellow sac is primary indoor dangerous spider
+    const ys = DANGEROUS_SPIDERS.yellowSac;
+    const rating = ys.stateRating[stateCode] ?? 0;
+    if (rating === 0) return { meters: Infinity, na: true, reason: 'No significant populations in your state.' };
+    const seasonFrac = ys.seasonal[month];
+    const rhoDang = rhoBase * ys.fraction * (rating / 4) * seasonFrac;
+    if (rhoDang <= 0) return { meters: Infinity, na: true };
+    const meters = (0.5 / Math.sqrt(rhoDang)) * 0.7;
+    return { meters, rho: rhoDang, spider: ys, rating, na: false };
+  } else {
+    // Outdoor: compare Black Widow vs Brown Recluse, pick higher density
+    const bw = DANGEROUS_SPIDERS.blackWidow;
+    const br = DANGEROUS_SPIDERS.brownRecluse;
+    const bwRating = bw.stateRating[stateCode] ?? 0;
+    const brRating = br.stateRating[stateCode] ?? 0;
+
+    const bwRho = bwRating > 0 ? rhoBase * bw.fraction * (bwRating / 4) * bw.seasonal[month] : 0;
+    const brRho = brRating > 0 ? rhoBase * br.fraction * (brRating / 4) * br.seasonal[month] : 0;
+
+    const maxRho = Math.max(bwRho, brRho);
+    if (maxRho <= 0) return { meters: Infinity, na: true, reason: 'No significant populations in your state.' };
+    const spider = bwRho >= brRho ? bw : br;
+    const meters = (0.5 / Math.sqrt(maxRho)) * 0.7;
+    return { meters, rho: maxRho, spider, na: false, bwRho, brRho };
+  }
+}
+
+function formatDistance(meters) {
+  const feet = meters * 3.28084;
+  const inches = feet * 12;
+  if (meters === Infinity || meters > 1609) return { val: '> 1', unit: 'mile', raw: meters };
+  if (feet < 1) return { val: Math.round(inches).toString(), unit: 'in', raw: meters };
+  if (feet < 10) return { val: feet.toFixed(1), unit: 'ft', raw: meters };
+  if (feet < 1000) return { val: Math.round(feet).toString(), unit: 'ft', raw: meters };
+  return { val: '> 1', unit: 'mile', raw: meters };
+}
+
+function getMeaning(meters) {
+  if (meters === Infinity || meters > 1609) return 'More than a mile away — lucky!';
+  const feet = meters * 3.28084;
+  if (feet < 0.5)  return 'On you right now';
+  if (feet < 2)    return 'Within arm\'s reach';
+  if (feet < 8)    return 'Across the room';
+  if (feet < 30)   return 'In the same room';
+  if (feet < 100)  return 'In the same building';
+  if (feet < 300)  return 'Across the yard';
+  if (feet < 1320) return 'Down the street';
+  return 'A mile or more away';
+}
+
+// ─────────────────────────────────────────
+// RENDER
+// ─────────────────────────────────────────
+
+function renderResults() {
+  if (!state.stateCode) return;
+
+  const nn = calcNearestDistance(state.envId, state.region, state.latBand, state.month, state.hour);
+  const dn = calcDangerousDistance(state.envId, state.stateCode, state.region, state.latBand, state.month, state.hour);
+
+  // Nearest Spider card
+  if (nn) {
+    const fmt = formatDistance(nn.meters);
+    animateCount('nn-val', fmt.val, fmt.unit !== 'in' && fmt.val !== '> 1');
+    document.getElementById('nn-unit').textContent = fmt.unit;
+    document.getElementById('nn-sub').textContent = formatDensity(nn.rho);
+    document.getElementById('nn-meaning').textContent = getMeaning(nn.meters);
+    updateMath(nn);
+  }
+
+  // Dangerous Spider card
+  if (dn) {
+    if (dn.na) {
+      document.getElementById('dn-val').textContent = 'N/A';
+      document.getElementById('dn-unit').textContent = '';
+      document.getElementById('dn-sub').textContent = dn.reason || 'No data for this state/environment.';
+      document.getElementById('dn-meaning').textContent = '';
+    } else {
+      const fmt = formatDistance(dn.meters);
+      animateCount('dn-val', fmt.val, fmt.unit !== 'in' && fmt.val !== '> 1');
+      document.getElementById('dn-unit').textContent = fmt.unit;
+      document.getElementById('dn-sub').textContent = `${dn.spider.name} · ${formatDensity(dn.rho)}`;
+      document.getElementById('dn-meaning').textContent = getMeaning(dn.meters);
+    }
+  }
+
+  renderCallout(nn, dn);
+  renderSpeciesCards();
+  updateSeasonalBar();
+}
+
+function animateCount(elemId, targetVal, numeric) {
+  const el = document.getElementById(elemId);
+  if (!numeric || isNaN(parseFloat(targetVal))) {
+    el.textContent = targetVal;
+    el.classList.remove('fade-in');
+    void el.offsetWidth;
+    el.classList.add('fade-in');
+    return;
+  }
+  const target = parseFloat(targetVal);
+  const isDecimal = targetVal.includes('.');
+  const start = 0;
+  const duration = 900;
+  const startTime = performance.now();
+  function step(now) {
+    const progress = Math.min((now - startTime) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const current = start + (target - start) * eased;
+    el.textContent = isDecimal ? current.toFixed(1) : Math.round(current).toString();
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = targetVal;
+  }
+  requestAnimationFrame(step);
+}
+
+function updateMath(nn) {
+  const container = document.getElementById('math-details');
+  const env = nn.env;
+  container.innerHTML = `
+    <div class="math-row"><span class="k">ρ_base (${env.label})</span><span class="v">${env.density.toExponential(3)} /m²</span></div>
+    <div class="math-row"><span class="k">× M_region (${REGIONS[state.region].label})</span><span class="v">${nn.rMult.toFixed(2)}</span></div>
+    <div class="math-row"><span class="k">× M_season (${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][state.month]})</span><span class="v">${nn.sMult.toFixed(2)}</span></div>
+    <div class="math-row"><span class="k">× M_time (${nn.timePeriod})</span><span class="v">${nn.tMult.toFixed(2)}</span></div>
+    <div class="math-row"><span class="k">= ρ_effective</span><span class="v">${nn.rho.toExponential(3)} /m²</span></div>
+    <div class="math-row"><span class="k">Human scale</span><span class="v" style="color:var(--text-sec);font-size:0.75em;">${formatDensity(nn.rho)}</span></div>
+  `;
+  const fmt = formatDistance(nn.meters);
+  document.getElementById('math-result').textContent =
+    nn.meters === Infinity ? '> 1 mile' : `${fmt.val} ${fmt.unit}`;
+}
+
+function renderCallout(nn, dn) {
+  const title = document.getElementById('callout-title');
+  const body = document.getElementById('callout-body');
+  const box = document.getElementById('callout');
+  const month = state.month;
+  const band = state.latBand;
+  const sc = state.stateCode;
+  box.className = 'callout';
+
+  // Determine callout
+  if (band === 'northern' && (month <= 1 || month >= 11)) {
+    title.textContent = 'Deep Winter — Spiders Are Slumbering';
+    body.textContent = " ~85% of temperate spiders are dormant or in egg sacs right now. The survivors shelter under bark, in leaf litter, or in protected crevices — often in a cold-induced torpor called overwintering. Indoor numbers are the main story.";
+    box.className = 'callout amber-accent';
+  } else if (band === 'floridaHawaii') {
+    title.textContent = 'Year-Round Abundance';
+    body.textContent = " Florida and Hawaii maintain high spider activity all year. No real off-season here — humidity and warmth keep populations stable through all 12 months.";
+  } else if (sc && DANGEROUS_SPIDERS.brownRecluse.stateRating[sc] >= 3 && month >= 5 && month <= 9) {
+    title.textContent = 'Brown Recluse Season';
+    body.textContent = " Your state has significant brown recluse populations and it's peak activity season. They favor dry, undisturbed spaces like storage boxes, closets, and attics. Shake out shoes and clothing before wearing if stored in these areas.";
+    box.className = 'callout red-accent';
+  } else if (nn && nn.meters < 0.5 && !nn.env.indoor) {
+    title.textContent = 'Dense Spider Territory';
+    body.textContent = " Your selected outdoor environment has very high spider density. This is ecologically healthy — high spider populations indicate a robust insect food base and a functioning ecosystem.";
+  } else if (nn && nn.env.indoor) {
+    title.textContent = 'Indoor Spider Reality';
+    body.textContent = " House spiders are almost always harmless synanthropic species that eat other insects. The average home has 30–100 spiders at any given time, the vast majority invisible in wall voids and undisturbed corners.";
+  } else if (month >= 7 && month <= 9) {
+    title.textContent = 'Peak Spider Season';
+    body.textContent = " Late summer through early fall is peak spider season across most of the US — juveniles have matured, adult males are roaming for mates, and web-builders are most visible in morning dew.";
+  } else {
+    title.textContent = 'Statistical Nearest Neighbor';
+    body.textContent = " This distance is the expected nearest-neighbor distance under random (Poisson) distribution. Real spiders cluster near prey and shelter, so some will be closer, some farther — this is the statistical expectation.";
+  }
+}
+
+function renderSpeciesCards() {
+  const grid = document.getElementById('species-grid');
+  const sc = state.stateCode;
+  if (!sc) return;
+  const relevant = Object.values(DANGEROUS_SPIDERS)
+    .filter(sp => (sp.stateRating[sc] ?? 0) > 0)
+    .sort((a, b) => (b.stateRating[sc] ?? 0) - (a.stateRating[sc] ?? 0));
+
+  if (relevant.length === 0) {
+    grid.innerHTML = '<p style="color:var(--text-sec);font-size:0.8rem;">No significant populations of tracked dangerous species in your state.</p>';
+    return;
+  }
+
+  grid.innerHTML = relevant.map(sp => {
+    const rating = sp.stateRating[sc];
+    const stars = '★'.repeat(rating) + '☆'.repeat(4 - rating);
+    return `
+      <div class="species-card">
+        <div class="sp-name">${sp.name}</div>
+        <div class="sp-sci">${sp.sciName}</div>
+        <span class="risk-badge ${sp.risk}">${sp.riskLabel}</span>
+        <div class="stars">${stars.split('').map((s,i) => `<span class="${i < rating ? 'filled' : ''}">${s}</span>`).join('')} <span style="color:var(--text-dim);font-size:0.65rem;"> presence</span></div>
+        <div class="sp-desc">${sp.desc}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+function updateSeasonalBar() {
+  const band = state.latBand || 'midLatitude';
+  const peak = SEASON_PEAKS[band] || SEASON_PEAKS.midLatitude;
+  const currentMonth = state.month;
+
+  const fillEl = document.getElementById('season-fill');
+  const currentEl = document.getElementById('season-current');
+  const captionEl = document.getElementById('seasonal-caption');
+
+  const leftPct  = (peak.start / 12) * 100;
+  const widthPct = ((peak.end - peak.start + 1) / 12) * 100;
+  const curPct   = ((currentMonth + 0.5) / 12) * 100;
+
+  fillEl.style.left  = leftPct + '%';
+  fillEl.style.width = widthPct + '%';
+  currentEl.style.left = `calc(${curPct}% - 1px)`;
+
+  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const peakNames = `${MONTHS[peak.start]}–${MONTHS[peak.end]}`;
+  const monthSeasonal = SEASONAL[band === 'indoor' ? 'indoor' : band][currentMonth];
+  const pct = Math.round((monthSeasonal - 0.4) / (1.4 - 0.4) * 100);
+
+  captionEl.textContent = `Peak season: ${peakNames} · Current activity index: ${monthSeasonal.toFixed(2)} (${pct}% of max)`;
+}
+
+// ─────────────────────────────────────────
+// REFERENCE TABLE
+// ─────────────────────────────────────────
+
+function buildReferenceTable() {
+  const tbody = document.getElementById('ref-table-body');
+  // Sort by density descending
+  const sorted = [...ENVIRONMENTS].sort((a, b) => b.density - a.density);
+  tbody.innerHTML = sorted.map(env => {
+    const meters = (0.5 / Math.sqrt(env.density)) * 0.7;
+    const fmt = formatDistance(meters);
+    const isCurrent = env.id === state.envId;
+    return `
+      <tr ${isCurrent ? 'class="current-row"' : ''}>
+        <td><i class="ph-duotone ${env.indoor ? 'ph-house' : 'ph-tree'}" style="vertical-align:middle;margin-right:0.35em;opacity:0.7;"></i>${env.label}</td>
+        <td class="td-num">${env.density.toExponential(2)}</td>
+        <td class="td-num">${fmt.val} ${fmt.unit}</td>
+      </tr>
+    `;
+  }).join('');
+}
+
+// ─────────────────────────────────────────
+// ENVIRONMENT DROPDOWN
+// ─────────────────────────────────────────
+
+function buildEnvDropdown() {
+  const sel = document.getElementById('env-select');
+  const outdoor = ENVIRONMENTS.filter(e => !e.indoor);
+  const indoor  = ENVIRONMENTS.filter(e =>  e.indoor);
+
+  const makeOpts = arr => arr.map(e =>
+    `<option value="${e.id}" ${e.id === state.envId ? 'selected' : ''}>${e.label}</option>`
+  ).join('');
+
+  sel.innerHTML = `
+    <optgroup label="— Outdoor —">${makeOpts(outdoor)}</optgroup>
+    <optgroup label="— Indoor —">${makeOpts(indoor)}</optgroup>
+  `;
+
+  sel.addEventListener('change', () => {
+    state.envId = sel.value;
+    renderResults();
+    buildReferenceTable();
+  });
+}
+
+// ─────────────────────────────────────────
+// MANUAL STATE PICKER
+// ─────────────────────────────────────────
+
+function buildManualPicker() {
+  const sel = document.getElementById('state-select');
+  const states = Object.keys(STATE_CENTROIDS).sort();
+  sel.innerHTML = '<option value="">— Select State —</option>' +
+    states.map(s => `<option value="${s}">${s}</option>`).join('');
+  sel.addEventListener('change', () => {
+    if (!sel.value) return;
+    const code = sel.value;
+    const [lat, lon] = STATE_CENTROIDS[code];
+    applyLocation(lat, lon, code, code + ' (manual)');
+  });
+}
+
+// ─────────────────────────────────────────
+// LOCATION
+// ─────────────────────────────────────────
+
+function applyLocation(lat, lon, stateCode, label) {
+  state.lat = lat;
+  state.lon = lon;
+  state.stateCode = stateCode;
+  state.region = STATE_TO_REGION[stateCode] || 'midwest';
+  state.latBand = getLatBand(lat, stateCode);
+  state.locationLabel = label;
+  state.loaded = true;
+
+  document.getElementById('ctx-location').textContent = label;
+  const statusEl = document.getElementById('location-status');
+  statusEl.textContent = '';
+  statusEl.className = '';
+  document.getElementById('manual-picker').style.display = 'none';
+
+  renderResults();
+  buildReferenceTable();
+}
+
+async function reverseGeocode(lat, lon) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 5000);
+  try {
+    const resp = await fetch(
+      `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`,
+      { signal: controller.signal, headers: { 'Accept-Language': 'en' } }
+    );
+    clearTimeout(timeout);
+    const data = await resp.json();
+    const addr = data.address || {};
+    const country = addr.country_code?.toUpperCase();
+    if (country !== 'US') {
+      showLocationError('This calculator covers US spider populations only.');
+      return;
+    }
+    const stateAbbr = usStateToAbbr(addr.state);
+    if (!stateAbbr) {
+      showLocationError('Could not determine US state. Please select manually.');
+      return;
+    }
+    const city = addr.city || addr.town || addr.village || addr.county || '';
+    const label = city ? `${city}, ${stateAbbr}` : stateAbbr;
+    applyLocation(lat, lon, stateAbbr, label);
+  } catch (e) {
+    clearTimeout(timeout);
+    showLocationError('Location lookup timed out. Please select manually.');
+  }
+}
+
+function usStateToAbbr(stateName) {
+  const map = {
+    'Alabama':'AL','Alaska':'AK','Arizona':'AZ','Arkansas':'AR','California':'CA',
+    'Colorado':'CO','Connecticut':'CT','Delaware':'DE','Florida':'FL','Georgia':'GA',
+    'Hawaii':'HI','Idaho':'ID','Illinois':'IL','Indiana':'IN','Iowa':'IA','Kansas':'KS',
+    'Kentucky':'KY','Louisiana':'LA','Maine':'ME','Maryland':'MD','Massachusetts':'MA',
+    'Michigan':'MI','Minnesota':'MN','Mississippi':'MS','Missouri':'MO','Montana':'MT',
+    'Nebraska':'NE','Nevada':'NV','New Hampshire':'NH','New Jersey':'NJ','New Mexico':'NM',
+    'New York':'NY','North Carolina':'NC','North Dakota':'ND','Ohio':'OH','Oklahoma':'OK',
+    'Oregon':'OR','Pennsylvania':'PA','Rhode Island':'RI','South Carolina':'SC',
+    'South Dakota':'SD','Tennessee':'TN','Texas':'TX','Utah':'UT','Vermont':'VT',
+    'Virginia':'VA','Washington':'WA','West Virginia':'WV','Wisconsin':'WI','Wyoming':'WY',
+    'District of Columbia':'DC',
+  };
+  return map[stateName] || null;
+}
+
+function showLocationError(msg) {
+  const el = document.getElementById('location-status');
+  el.textContent = msg;
+  el.className = 'error';
+  document.getElementById('manual-picker').style.display = 'block';
+}
+
+function initLocation() {
+  updateTimeContext();
+
+  if (!navigator.geolocation) {
+    showLocationError('Geolocation not supported. Please select your state.');
+    return;
+  }
+
+  // After 12s with no answer, show the manual picker as a soft option —
+  // but keep the geolocation request alive so allowing later still works.
+  const softTimer = setTimeout(() => {
+    if (!state.loaded) {
+      const el = document.getElementById('location-status');
+      el.textContent = 'Taking a while… you can select manually or wait for browser permission.';
+      el.className = '';
+      document.getElementById('manual-picker').style.display = 'block';
+    }
+  }, 12000);
+
+  navigator.geolocation.getCurrentPosition(
+    pos => {
+      clearTimeout(softTimer);
+      const { latitude: lat, longitude: lon } = pos.coords;
+      reverseGeocode(lat, lon);
+    },
+    err => {
+      clearTimeout(softTimer);
+      if (err.code === 1 /* PERMISSION_DENIED */) {
+        showLocationError('Location access denied. Please select your state:');
+      } else {
+        showLocationError('Could not get location. Please select your state:');
+      }
+    },
+    { maximumAge: 60000 }
+    // No timeout — wait indefinitely for the user's permission decision.
+  );
+}
+
+function updateTimeContext() {
+  const now = new Date();
+  state.month = now.getMonth();
+  state.hour  = now.getHours();
+  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  document.getElementById('ctx-month').textContent = MONTHS[state.month];
+  const period = getTimePeriod(state.hour);
+  const hourFmt = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+  document.getElementById('ctx-time').textContent = `${hourFmt} (${period})`;
+}
+
+// ─────────────────────────────────────────
+// SVG SPIDER WEB
+// ─────────────────────────────────────────
+
+function buildSpiderWeb() {
+  const g = document.getElementById('web-g');
+  const SPOKES  = 8;
+  const RINGS   = 6;
+  const MAX_R   = 185;
+  const STROKE  = 'var(--amber)';
+  const STROKE_THIN = 'var(--amber)';
+
+  let html = '';
+
+  // Spokes
+  for (let i = 0; i < SPOKES; i++) {
+    const angle = (i / SPOKES) * 2 * Math.PI;
+    const x = Math.cos(angle) * MAX_R;
+    const y = Math.sin(angle) * MAX_R;
+    html += `<line x1="0" y1="0" x2="${x.toFixed(2)}" y2="${y.toFixed(2)}" stroke="${STROKE}" stroke-width="1.2" stroke-opacity="0.35"/>`;
+  }
+
+  // Rings (concentric polygon segments)
+  for (let r = 1; r <= RINGS; r++) {
+    const radius = (r / RINGS) * MAX_R;
+    const pts = [];
+    for (let i = 0; i <= SPOKES; i++) {
+      const angle = (i / SPOKES) * 2 * Math.PI;
+      pts.push(`${(Math.cos(angle) * radius).toFixed(2)},${(Math.sin(angle) * radius).toFixed(2)}`);
+    }
+    html += `<polyline points="${pts.join(' ')}" fill="none" stroke="${STROKE}" stroke-opacity="${r < 3 ? 0.2 : 0.35}" stroke-width="${r === RINGS ? 1.5 : 1}"/>`;
+  }
+
+  // Hub
+  html += `<circle cx="0" cy="0" r="3" fill="var(--amber)" opacity="0.8"/>`;
+
+  // Spider dot (animated along outermost ring)
+  const outerR = MAX_R;
+  const pathPts = [];
+  for (let i = 0; i <= SPOKES; i++) {
+    const angle = (i / SPOKES) * 2 * Math.PI;
+    pathPts.push(`${(Math.cos(angle) * outerR).toFixed(2)},${(Math.sin(angle) * outerR).toFixed(2)}`);
+  }
+  const pathD = 'M ' + pathPts.join(' L ') + ' Z';
+  html += `
+    <path id="spider-path" d="${pathD}" fill="none" stroke="none"/>
+    <circle r="4" fill="var(--amber)" style="filter:drop-shadow(0 0 5px var(--amber))">
+      <animateMotion dur="14s" repeatCount="indefinite">
+        <mpath href="#spider-path"/>
+      </animateMotion>
+    </circle>
+  `;
+
+  g.innerHTML = html;
+}
+
+// ─────────────────────────────────────────
+// FUN FACTS
+// ─────────────────────────────────────────
+
+function buildFacts() {
+  const track = document.getElementById('facts-track');
+  track.innerHTML = SPIDER_FACTS.map(f =>
+    `<div class="fact-chip"><i class="ph-duotone ph-bug"></i>${f}</div>`
+  ).join('');
+}
+
+// ─────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────
+
+document.addEventListener('DOMContentLoaded', () => {
+  buildEnvDropdown();
+  buildManualPicker();
+  buildSpiderWeb();
+  buildFacts();
+  updateTimeContext();
+  initLocation();
+
+  // Fallback render for if geo takes too long — show skeleton then real numbers
+  setTimeout(() => {
+    if (!state.loaded) {
+      buildReferenceTable();
+    }
+  }, 500);
+});
+</script>
+</body>
+</html>

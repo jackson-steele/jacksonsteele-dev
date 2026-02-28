@@ -35,12 +35,12 @@ jobs:
 
       - name: Add SPA 404 redirect for hash routing
         run: |
-          mkdir -p out/rank-your-posterity
-          cat > out/rank-your-posterity/404.html <<'HTML'
+          mkdir -p out/personal-projects/heirarchy
+          cat > out/personal-projects/heirarchy/404.html <<'HTML'
           <!DOCTYPE html>
           <meta charset="utf-8">
-          <meta http-equiv="refresh" content="0; url=/rank-your-posterity/#/">
-          <link rel="canonical" href="/rank-your-posterity/#/">
+          <meta http-equiv="refresh" content="0; url=/personal-projects/heirarchy/#/">
+          <link rel="canonical" href="/personal-projects/heirarchy/#/">
           HTML
 
       - name: Add .nojekyll

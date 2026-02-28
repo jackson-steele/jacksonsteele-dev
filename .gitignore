@@ -2,6 +2,7 @@ node_modules
 .DS_Store
 .next/
 out/
+version-2.0-instructions/
 
 # Environment variables
 .env.local
