@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import CallToAction from "../../components/CallToAction";
 import Footer from "../../components/Footer";
+import Navbar from "../../components/Navbar";
 
 interface ProjectCard {
   image: string;
@@ -39,6 +40,7 @@ const projects: ProjectCard[] = [
 export default function PersonalProjectsPage() {
   return (
     <main className="min-h-screen bg-white">
+      <Navbar />
       <div className="max-w-6xl mx-auto px-6 pt-16 pb-12">
         <h1 className="mb-4">Personal Projects</h1>
 
