@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { trackEvent } from "../lib/analytics";
 
 export default function CallToAction() {
   return (
@@ -19,6 +22,7 @@ export default function CallToAction() {
             <a
               href="mailto:jacksonsteele8@gmail.com"
               className="btn btn-primary"
+              onClick={() => trackEvent("contact_click", { method: "email", location: "page_cta" })}
             >
               Send me an email
             </a>
@@ -27,6 +31,7 @@ export default function CallToAction() {
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-secondary"
+              onClick={() => trackEvent("contact_click", { method: "linkedin", location: "page_cta" })}
             >
               Connect on LinkedIn
             </a>

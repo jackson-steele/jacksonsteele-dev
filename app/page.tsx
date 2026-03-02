@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
 import Footer from "../components/Footer";
+import { trackEvent } from "../lib/analytics";
 
 const highlights = [
   {
@@ -77,6 +78,7 @@ function TypewriterHireMe() {
       ([entry]) => {
         if (entry.isIntersecting && !started.current) {
           started.current = true;
+          trackEvent("section_view", { section: "hire_me" });
           let i = 0;
           const interval = setInterval(() => {
             if (i < targetText.length) {
@@ -112,6 +114,7 @@ export default function HomePage() {
   function openLightbox(src: string) {
     setLightboxSrc(src);
     setLightboxOpen(true);
+    trackEvent("lightbox_open", { image: src });
   }
   function closeLightbox() {
     setLightboxOpen(false);
@@ -144,7 +147,11 @@ export default function HomePage() {
             Product Manager
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
-            <a href="mailto:jacksonsteele8@gmail.com" className="btn btn-white">
+            <a
+              href="mailto:jacksonsteele8@gmail.com"
+              className="btn btn-white"
+              onClick={() => trackEvent("contact_click", { method: "email", location: "hero" })}
+            >
               Contact Me
             </a>
             <a
@@ -152,6 +159,7 @@ export default function HomePage() {
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-white-outline"
+              onClick={() => trackEvent("contact_click", { method: "linkedin", location: "hero" })}
             >
               LinkedIn
             </a>
@@ -160,6 +168,7 @@ export default function HomePage() {
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-white-outline"
+              onClick={() => trackEvent("resume_click", { location: "hero" })}
             >
               Resume
             </a>
@@ -210,6 +219,7 @@ export default function HomePage() {
                 key={logo.href}
                 href={logo.href}
                 className="flex items-center justify-center active:scale-[0.98] transition-transform"
+                onClick={() => trackEvent("logo_click", { org: logo.alt })}
               >
                 <Image
                   src={logo.src}
@@ -249,7 +259,7 @@ export default function HomePage() {
                     return (
                       <button
                         key={i}
-                        onClick={() => openLightbox(tile.src)}
+                        onClick={() => { openLightbox(tile.src); trackEvent("highlight_click", { card: tile.alt }); }}
                         className="active:scale-[0.98] transition-transform rounded-2xl overflow-hidden cursor-pointer text-left w-full"
                       >
                         {img}
@@ -261,6 +271,7 @@ export default function HomePage() {
                       key={i}
                       href={tile.href!}
                       className="active:scale-[0.98] transition-transform rounded-2xl overflow-hidden block"
+                      onClick={() => trackEvent("highlight_click", { card: tile.alt })}
                     >
                       {img}
                     </Link>
@@ -285,7 +296,7 @@ export default function HomePage() {
                 return (
                   <button
                     key={i}
-                    onClick={() => openLightbox(tile.src)}
+                    onClick={() => { openLightbox(tile.src); trackEvent("highlight_click", { card: tile.alt }); }}
                     className="active:scale-[0.98] transition-transform rounded-2xl overflow-hidden cursor-pointer w-full text-left"
                   >
                     {img}
@@ -297,6 +308,7 @@ export default function HomePage() {
                   key={i}
                   href={tile.href!}
                   className="active:scale-[0.98] transition-transform rounded-2xl overflow-hidden block"
+                  onClick={() => trackEvent("highlight_click", { card: tile.alt })}
                 >
                   {img}
                 </Link>
@@ -324,7 +336,11 @@ export default function HomePage() {
               Product Manager roles starting Summer 2026
             </p>
             <div className="flex flex-wrap gap-3">
-              <a href="mailto:jacksonsteele8@gmail.com" className="btn btn-primary">
+              <a
+                href="mailto:jacksonsteele8@gmail.com"
+                className="btn btn-primary"
+                onClick={() => trackEvent("contact_click", { method: "email", location: "hire_me" })}
+              >
                 Send me an email
               </a>
               <a
@@ -332,6 +348,7 @@ export default function HomePage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-secondary"
+                onClick={() => trackEvent("contact_click", { method: "linkedin", location: "hire_me" })}
               >
                 Connect on LinkedIn
               </a>
