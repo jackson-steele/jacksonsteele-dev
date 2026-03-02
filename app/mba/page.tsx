@@ -10,7 +10,7 @@ export default function MBAPage() {
         title="MBA Student"
         org="Kellogg School of Management"
         intro="At Kellogg, I've focused my education on building products, teams, and cultures that are highly effective and strategically sound."
-        coverPhoto="/images/mba/cover-photo.jpeg"
+        coverPhoto="/images/mba/cover-photo.webp"
       />
 
       <div className="max-w-3xl mx-auto px-6 py-12 flex flex-col gap-12">
@@ -45,7 +45,7 @@ export default function MBAPage() {
 
         <div className="rounded-2xl overflow-hidden">
           <Image
-            src="/images/mba/hidenn-ai-group-photo.jpg"
+            src="/images/mba/hidenn-ai-group-photo.webp"
             alt="HIDENN-AI group photo"
             width={900}
             height={600}

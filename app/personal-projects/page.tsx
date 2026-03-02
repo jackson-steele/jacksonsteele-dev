@@ -14,7 +14,7 @@ interface ProjectCard {
 
 const projects: ProjectCard[] = [
   {
-    image: "/images/personal-projects/heirarchy-card.png",
+    image: "/images/personal-projects/heirarchy-card.webp",
     title: "Heirarchy",
     description:
       "Finally, a tool that combines estate planning with stack-ranking your loved ones.",
@@ -22,14 +22,14 @@ const projects: ProjectCard[] = [
     secondaryButton: { label: "Learn more", href: "/personal-projects/heirarchy/about" },
   },
   {
-    image: "/images/personal-projects/location-based-notes-card.png",
+    image: "/images/personal-projects/location-based-notes-card.webp",
     title: "Location-Based Campaigns",
     description:
       "When I play D&D, I like my notes to be organized spatially. I couldn’t find a free tool to do that, so I built one.",
     primaryButton: { label: "Learn more", href: "/personal-projects/dnd-location-based-notes" },
   },
   {
-    image: "/images/personal-projects/statistically-nearest-spider-card.jpg",
+    image: "/images/personal-projects/statistically-nearest-spider-card.webp",
     title: "Statistically Nearest Spider",
     description:
       "It’s commonly claimed that you’re never more than 3 feet away from a spider. I did the math.",

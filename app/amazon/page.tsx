@@ -9,7 +9,7 @@ export default function AmazonPage() {
         title="Software Development Engineer"
         org="Amazon"
         intro="At Amazon, I learned to ship software quickly and reliably, even when deadlines were tight and we were under-resourced, and I grew from a coder into a builder."
-        coverPhoto="/images/amazon/cover-photo.jpeg"
+        coverPhoto="/images/amazon/cover-photo.webp"
       />
 
       <div className="max-w-3xl mx-auto px-6 py-12 flex flex-col gap-12">

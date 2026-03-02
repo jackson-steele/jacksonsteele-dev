@@ -9,7 +9,7 @@ export default function CallToAction() {
       <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-10">
         <div className="flex-shrink-0">
           <Image
-            src="/images/profile-picture.png"
+            src="/images/profile-picture.webp"
             alt="Jackson Steele"
             width={300}
             height={300}

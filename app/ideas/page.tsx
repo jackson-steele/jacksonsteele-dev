@@ -9,7 +9,7 @@ export default function IdeasPage() {
         title="Product Management Intern"
         org="IDeaS Revenue Solutions"
         intro="At IDeaS, I experienced different phases of the product development process through four intern projects, where I did initial research, defined product requirements, drafted development epics, and ran a phased launch with enterprise clients."
-        coverPhoto="/images/ideas/cover-photo.jpeg"
+        coverPhoto="/images/ideas/cover-photo.webp"
       />
 
       <div className="max-w-3xl mx-auto px-6 py-12 flex flex-col gap-12">

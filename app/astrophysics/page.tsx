@@ -10,7 +10,7 @@ export default function AstrophysicsPage() {
         title="Astrophysics Student and Researcher"
         org="Brigham Young University"
         intro="Why do I call myself an astrophysicist? The short answer is that I studied astrophysics in college, and I'm a coauthor on several astrophysics papers. More importantly, astrophysics has fundamentally shaped how I think and work."
-        coverPhoto="/images/astrophysics/cover-photo.jpg"
+        coverPhoto="/images/astrophysics/cover-photo.webp"
       />
 
       <div className="max-w-3xl mx-auto px-6 py-12 flex flex-col gap-12">
@@ -53,7 +53,7 @@ export default function AstrophysicsPage() {
 
         <div className="rounded-2xl overflow-hidden">
           <Image
-            src="/images/astrophysics/aas-photo.jpg"
+            src="/images/astrophysics/aas-photo.webp"
             alt="American Astronomical Society meeting"
             width={900}
             height={600}

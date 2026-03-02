@@ -9,7 +9,7 @@ export default function HeirarchyAboutPage() {
         title="Heirarchy"
         org="A tool for parents and grandparents to stack-rank their posterity and allocate inheritance accordingly"
         intro=""
-        coverPhoto="/images/heirarchy/ranking.png"
+        coverPhoto="/images/heirarchy/ranking.webp"
       />
 
       <div className="max-w-3xl mx-auto px-6 py-12 flex flex-col gap-12">

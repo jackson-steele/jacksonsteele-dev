@@ -8,43 +8,43 @@ import { trackEvent } from "../lib/analytics";
 
 const highlights = [
   {
-    src: "/images/main/highlight-cards/software-engineer.png",
+    src: "/images/main/highlight-cards/software-engineer.webp",
     alt: "Software Engineer",
     href: "/amazon",
     lightbox: false,
   },
   {
-    src: "/images/main/highlight-cards/astrophysicist.png",
+    src: "/images/main/highlight-cards/astrophysicist.webp",
     alt: "Astrophysicist",
     href: "/astrophysics",
     lightbox: false,
   },
   {
-    src: "/images/main/highlight-cards/product-manager-intern.png",
+    src: "/images/main/highlight-cards/product-manager-intern.webp",
     alt: "Product Manager Intern",
     href: "/ideas",
     lightbox: false,
   },
   {
-    src: "/images/main/highlight-cards/friends.png",
+    src: "/images/main/highlight-cards/friends.webp",
     alt: "Socially Competent",
     href: null,
     lightbox: true,
   },
   {
-    src: "/images/main/highlight-cards/personal-projects.png",
+    src: "/images/main/highlight-cards/personal-projects.webp",
     alt: "Personal Projects",
     href: "/personal-projects",
     lightbox: false,
   },
   {
-    src: "/images/main/highlight-cards/prd-pitch-deck.png",
+    src: "/images/main/highlight-cards/prd-pitch-deck.webp",
     alt: "PRD + Pitch Deck",
     href: "/mba#project-2-neutrino",
     lightbox: false,
   },
   {
-    src: "/images/main/highlight-cards/go-to-market-plan.png",
+    src: "/images/main/highlight-cards/go-to-market-plan.webp",
     alt: "Go To Market Plan",
     href: "/mba#project-1-creating-a-gtm-plan-for-ai-startup-hidenn-ai",
     lightbox: false,
@@ -52,10 +52,10 @@ const highlights = [
 ];
 
 const logos = [
-  { src: "/images/main/logos/kellogg.png", alt: "Kellogg School of Management", href: "/mba" },
-  { src: "/images/main/logos/byu.png", alt: "Brigham Young University", href: "/astrophysics" },
-  { src: "/images/main/logos/ideas.png", alt: "IDeaS Revenue Solutions", href: "/ideas" },
-  { src: "/images/main/logos/amazon.png", alt: "Amazon", href: "/amazon" },
+  { src: "/images/main/logos/kellogg.webp", alt: "Kellogg School of Management", href: "/mba" },
+  { src: "/images/main/logos/byu.webp", alt: "Brigham Young University", href: "/astrophysics" },
+  { src: "/images/main/logos/ideas.webp", alt: "IDeaS Revenue Solutions", href: "/ideas" },
+  { src: "/images/main/logos/amazon.webp", alt: "Amazon", href: "/amazon" },
 ];
 
 const desktopCols = [
@@ -134,7 +134,7 @@ export default function HomePage() {
       {/* Hero */}
       <section className="relative w-full min-h-[85vh] flex items-center justify-center overflow-hidden">
         <Image
-          src="/images/main/cover-photo.jpg"
+          src="/images/main/cover-photo.webp"
           alt="Jackson Steele cover photo"
           fill
           priority
@@ -323,7 +323,7 @@ export default function HomePage() {
         <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-10">
           <div className="flex-shrink-0">
             <Image
-              src="/images/profile-picture.png"
+              src="/images/profile-picture.webp"
               alt="Jackson Steele"
               width={300}
               height={300}
