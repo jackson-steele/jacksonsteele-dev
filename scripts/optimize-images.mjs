@@ -91,6 +91,7 @@ async function processImage(full) {
   const beforeSize = beforeStat.size;
 
   await sharp(full)
+    .rotate()
     .resize({ width: config.maxWidth, withoutEnlargement: true })
     .webp({ quality: config.quality })
     .toFile(isSameFile ? outPath + ".tmp" : outPath);
