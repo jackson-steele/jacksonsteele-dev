@@ -188,7 +188,7 @@ export default function HomePage() {
             <div>
               <h5>Astrophysics Problem-Solver</h5>
               <p style={{ color: "rgba(0,0,0,0.7)", fontSize: "20px" }}>
-                As an astrophysicist, I learned to tackle galaxy-scale problems by decomposing them into bite-sized chunks that I can solve using data and experiments.
+                As an astrophysicist, I learned to tackle galaxy-scale problems by deconstructing them into bite-sized chunks that I can solve using data and experiments.
               </p>
             </div>
             <div>

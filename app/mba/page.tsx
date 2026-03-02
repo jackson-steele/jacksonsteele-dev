@@ -26,7 +26,7 @@ export default function MBAPage() {
             Product management classes taught me the core competencies that product managers need to succeed, including setting product strategy, creating roadmaps, evaluating problems and solutions, and stakeholder management.
           </p>
           <p className="mt-4" style={{ color: "rgba(0,0,0,0.8)", fontSize: "20px" }}>
-            Kellogg marketing classes go beyond traditional marketing, and through them I&apos;ve learned about analyzing market opportunities, creating go-to-market plans and growth strategies, segmentation, data analytics, and branding.
+            Kellogg marketing classes go beyond traditional marketing, and through them I&apos;ve learned about analyzing market opportunities, creating go-to-market plans and growth strategies, segmentation, and data analytics.
           </p>
         </section>
 
@@ -105,7 +105,7 @@ export default function MBAPage() {
             </a>
           </div>
           <p className="mt-6" style={{ color: "rgba(0,0,0,0.8)", fontSize: "20px" }}>
-            While I am not planning on taking this to market, I am currently working on building it with the help of Claude Code. Coming soon!
+            While I am not currently planning on taking this to market, I am currently working on building it with the help of Claude Code. Coming soon!
           </p>
         </section>
       </div>
