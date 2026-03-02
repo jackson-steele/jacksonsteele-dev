@@ -7,7 +7,7 @@ export default function HeirarchyAboutPage() {
     <main className="min-h-screen bg-white">
       <PageHeader
         title="Heirarchy"
-        org="A tool for parents and grandparents to stack-rank their posterity and allocate inheritance accordingly"
+        org="Finally, a tool that combines estate planning with stack-ranking your loved ones."
         intro=""
         coverPhoto="/images/heirarchy/ranking.webp"
       />

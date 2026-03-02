@@ -23,7 +23,7 @@ const projects: ProjectCard[] = [
   },
   {
     image: "/images/personal-projects/location-based-notes-card.webp",
-    title: "Location-Based Campaigns",
+    title: "Delve",
     description:
       "When I play D&D, I like my notes to be organized spatially. I couldn’t find a free tool to do that, so I built one.",
     primaryButton: { label: "Learn more", href: "/personal-projects/dnd-location-based-notes" },
