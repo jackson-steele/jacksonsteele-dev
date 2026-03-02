@@ -8,8 +8,7 @@ export default function DndLocationNotesPage() {
     <main className="min-h-screen bg-white">
       <PageHeader
         title="Location-Based Campaigns"
-        org="A tool for Dungeon Masters"
-        intro="A tool for Dungeon Masters to create location-based campaigns, letting them write notes for specific locations on a map that trigger when players arrive."
+        intro="As a Dungeons & Dragons player, I like to organize my notes spatially. I couldn't find a free tool to do that, so I built one."
         coverPhoto="/images/personal-projects/location-based-notes-card.png"
       />
 

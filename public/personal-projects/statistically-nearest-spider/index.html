@@ -43,7 +43,7 @@
     content: '';
     position: fixed;
     inset: 0;
-    background-image: url('web.jpg');
+    background-image: url('../../images/personal-projects/web.jpg');
     background-size: cover;
     background-position: center;
     filter: brightness(0.35) contrast(1.2);
@@ -551,6 +551,39 @@
     margin-top: 0.4rem;
   }
 
+  .sp-photo-details {
+    margin-top: 0.6rem;
+  }
+  .sp-photo-details summary {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    cursor: pointer;
+    user-select: none;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .sp-photo-details summary::-webkit-details-marker { display: none; }
+  .sp-photo-details summary::before {
+    content: '▶';
+    font-size: 0.55rem;
+    transition: transform 0.2s;
+    display: inline-block;
+  }
+  .sp-photo-details[open] summary::before {
+    transform: rotate(90deg);
+  }
+  .sp-photo-details img {
+    display: block;
+    width: 100%;
+    border-radius: 8px;
+    margin-top: 0.5rem;
+    border: 1px solid var(--border);
+    object-fit: cover;
+    max-height: 150px;
+  }
+
   /* REFERENCE TABLE */
   .ref-table-wrap {
     background: var(--surface);
@@ -992,6 +1025,7 @@ const DANGEROUS_SPIDERS = {
     },
     desc: 'Jet-black with red hourglass. Found in dark corners, woodpiles, garages. Venom is neurotoxic; bites are rarely fatal in healthy adults.',
     stars: 4,
+    image: '../../images/personal-projects/black_widow_spider.jpg',
   },
   brownRecluse: {
     name: 'Brown Recluse', sciName: 'Loxosceles reclusa',
@@ -1007,21 +1041,7 @@ const DANGEROUS_SPIDERS = {
     },
     desc: 'Violin marking on cephalothorax. Favors dry, undisturbed spaces: closets, attics, cardboard boxes. Bite causes necrotic lesion in ~10% of cases.',
     stars: 4,
-  },
-  yellowSac: {
-    name: 'Yellow Sac Spider', sciName: 'Cheiracanthium spp.',
-    risk: 'medium', riskLabel: 'Mild Venom',
-    fraction: 0.015,
-    seasonal: [0.60, 0.65, 0.80, 1.00, 1.15, 1.20, 1.25, 1.20, 1.10, 0.95, 0.75, 0.65],
-    stateRating: {
-      AL:3, AK:1, AZ:3, AR:3, CA:3, CO:2, CT:3, DE:3, FL:3, GA:3, HI:2,
-      ID:2, IL:3, IN:3, IA:3, KS:3, KY:3, LA:3, ME:2, MD:3, MA:3, MI:3,
-      MN:2, MS:3, MO:3, MT:2, NE:3, NV:3, NH:2, NJ:3, NM:3, NY:3, NC:3,
-      ND:2, OH:3, OK:3, OR:2, PA:3, RI:2, SC:3, SD:2, TN:3, TX:3, UT:2,
-      VT:2, VA:3, WA:2, WV:3, WI:2, WY:2, DC:3,
-    },
-    desc: 'Pale yellow, builds silken sac retreats in corners. Most common indoor dangerous spider. Bite causes mild to moderate local reaction.',
-    stars: 2,
+    image: '../../images/personal-projects/brown_recluse_spider.jpeg',
   },
 };
 
@@ -1124,32 +1144,17 @@ function calcDangerousDistance(envId, stateCode, region, latBand, month, hour) {
   const tMult = env.indoor ? TIME_OF_DAY.indoor[timePeriod] : TIME_OF_DAY.outdoor[timePeriod];
   const rhoBase = env.density * rMult * sMult * tMult;
 
-  if (env.indoor) {
-    // Yellow sac is primary indoor dangerous spider
-    const ys = DANGEROUS_SPIDERS.yellowSac;
-    const rating = ys.stateRating[stateCode] ?? 0;
-    if (rating === 0) return { meters: Infinity, na: true, reason: 'No significant populations in your state.' };
-    const seasonFrac = ys.seasonal[month];
-    const rhoDang = rhoBase * ys.fraction * (rating / 4) * seasonFrac;
-    if (rhoDang <= 0) return { meters: Infinity, na: true };
-    const meters = (0.5 / Math.sqrt(rhoDang)) * 0.7;
-    return { meters, rho: rhoDang, spider: ys, rating, na: false };
-  } else {
-    // Outdoor: compare Black Widow vs Brown Recluse, pick higher density
-    const bw = DANGEROUS_SPIDERS.blackWidow;
-    const br = DANGEROUS_SPIDERS.brownRecluse;
-    const bwRating = bw.stateRating[stateCode] ?? 0;
-    const brRating = br.stateRating[stateCode] ?? 0;
-
-    const bwRho = bwRating > 0 ? rhoBase * bw.fraction * (bwRating / 4) * bw.seasonal[month] : 0;
-    const brRho = brRating > 0 ? rhoBase * br.fraction * (brRating / 4) * br.seasonal[month] : 0;
-
-    const maxRho = Math.max(bwRho, brRho);
-    if (maxRho <= 0) return { meters: Infinity, na: true, reason: 'No significant populations in your state.' };
-    const spider = bwRho >= brRho ? bw : br;
-    const meters = (0.5 / Math.sqrt(maxRho)) * 0.7;
-    return { meters, rho: maxRho, spider, na: false, bwRho, brRho };
-  }
+  const bw = DANGEROUS_SPIDERS.blackWidow;
+  const br = DANGEROUS_SPIDERS.brownRecluse;
+  const bwRating = bw.stateRating[stateCode] ?? 0;
+  const brRating = br.stateRating[stateCode] ?? 0;
+  const bwRho = bwRating > 0 ? rhoBase * bw.fraction * (bwRating / 4) * bw.seasonal[month] : 0;
+  const brRho = brRating > 0 ? rhoBase * br.fraction * (brRating / 4) * br.seasonal[month] : 0;
+  const maxRho = Math.max(bwRho, brRho);
+  if (maxRho <= 0) return { meters: Infinity, na: true, reason: 'No significant populations in your state.' };
+  const spider = bwRho >= brRho ? bw : br;
+  const meters = (0.5 / Math.sqrt(maxRho)) * 0.7;
+  return { meters, rho: maxRho, spider, na: false, bwRho, brRho };
 }
 
 function formatDistance(meters) {
@@ -1206,6 +1211,7 @@ function renderResults() {
       const fmt = formatDistance(dn.meters);
       animateCount('dn-val', fmt.val, fmt.unit !== 'in' && fmt.val !== '> 1');
       document.getElementById('dn-unit').textContent = fmt.unit;
+      const currentEnv = ENVIRONMENTS.find(e => e.id === state.envId);
       document.getElementById('dn-sub').textContent = `${dn.spider.name} · ${formatDensity(dn.rho)}`;
       document.getElementById('dn-meaning').textContent = getMeaning(dn.meters);
     }
@@ -1316,6 +1322,10 @@ function renderSpeciesCards() {
         <span class="risk-badge ${sp.risk}">${sp.riskLabel}</span>
         <div class="stars">${stars.split('').map((s,i) => `<span class="${i < rating ? 'filled' : ''}">${s}</span>`).join('')} <span style="color:var(--text-dim);font-size:0.65rem;"> presence</span></div>
         <div class="sp-desc">${sp.desc}</div>
+        <details class="sp-photo-details">
+          <summary>See photo</summary>
+          <img src="${sp.image}" alt="${sp.name}" loading="lazy">
+        </details>
       </div>
     `;
   }).join('');
