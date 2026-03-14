@@ -44,10 +44,13 @@ export default function AstrophysicsPage() {
         <section>
           <h3 className="mb-6" style={{ fontSize: "36px" }}>Why <em>not</em> Astrophysics?</h3>
           <p style={{ color: "rgba(0,0,0,0.8)", fontSize: "20px" }}>
-            I loved astrophysics, but I worried that my research wouldn&apos;t meaningfully change anyone&apos;s life. I think science is vitally important for our society, even if it&apos;s not directly tied to immediate uses, but I wanted my work to be at a different part of the value chain.
+            I loved astrophysics, but I worried that my research wouldn&apos;t meaningfully change anyone&apos;s life. I think science is vitally important for our society, even if it&apos;s not directly tied to practical uses, but I wanted to have a tangible impact on people&apos;s lives.
           </p>
           <p className="mt-4" style={{ color: "rgba(0,0,0,0.8)", fontSize: "20px" }}>
-            I decided to switch to software engineering because I felt like my work would have a more immediate impact on people&apos;s lives. I enjoyed the coding I was doing in my research, so I changed my major to Applied Physics (which let me take more computer science classes without delaying graduation) and I got a software engineering internship at Amazon.
+            I decided to switch to software engineering because I knew my work would lead to regular, meaningful improvements for my customers, and I enjoyed the coding I was doing in my research. I changed my major to Applied Physics (which let me take more computer science classes without delaying graduation) and I got a software engineering internship at Amazon.
+          </p>
+          <p className="mt-4" style={{ color: "rgba(0,0,0,0.8)", fontSize: "20px" }}>
+            Since then, I&apos;ve found that my desire to help people has only deepened, and I decided to pursue an MBA so that I can focus on how to best bring value to customers, rather than exclusively focusing on technical decisions.
           </p>
         </section>
 

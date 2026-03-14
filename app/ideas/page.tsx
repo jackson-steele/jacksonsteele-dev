@@ -35,7 +35,7 @@ export default function IdeasPage() {
             I started talking to members of the team, learning how our pricing optimization worked instead of just what it did (which online resources focused on exclusively). When I learned about how the optimization model weighs different revenue sources, I realized that the resorts I&apos;d been researching had revenue streams that were completely lopsided compared to the rest of our clients. As I dug in further, this was clearly the issue.
           </p>
           <p className="mt-4" style={{ color: "rgba(0,0,0,0.8)", fontSize: "20px" }}>
-            I wrote a detailed report about the problem, as well as the recommended solution. I found that approximately 25% of all resorts used a pricing structure that we didn&apos;t yet fully support, and how we could begin supporting those clients and massively increase our foothold in that market.
+            I wrote a detailed report about the problem, as well as the recommended solution. I found that approximately 25% of all resorts used a pricing structure that we didn&apos;t yet fully support, and how we could begin supporting those clients and massively increase our foothold in that market. This project taught me that understanding how customers talk about their problems can unlock new market segments, perhaps more than just understanding what the product does.
           </p>
         </section>
 
@@ -68,13 +68,16 @@ export default function IdeasPage() {
             Before I joined, the team had completely re-built one of the modules in our core product (G3 RMS). This represented a step-change improvement over the prior functionality, and we wanted to do a phased roll-out to mitigate the risk if anything went wrong.
           </p>
           <p className="mt-4" style={{ color: "rgba(0,0,0,0.8)", fontSize: "20px" }}>
-            To do this roll-out, I started by identifying which of our enterprise clients were the heaviest users of this feature. I grouped clients into phases, which were spaced out enough that we could learn from each phase without dragging out the process. Then I coordinated with our marketing team, our client success team, our training team and our engineering team to align on dates and communicate with clients.
+            To do this roll-out, I started by identifying which of our enterprise clients were the heaviest users of this feature. I grouped clients into phases, which were spaced out enough that we could learn from each phase without dragging out the process. I wrote outreach messaging that was sent to the customer success managers for each stage (that they could forward to their clients).
+          </p>
+          <p className="mt-4" style={{ color: "rgba(0,0,0,0.8)", fontSize: "20px" }}>
+            Once I got the go-ahead from those customer success managers, I coordinated with our marketing team, our client success team, our training team and our engineering team to align on dates and communicate with clients.
           </p>
           <p className="mt-4" style={{ color: "rgba(0,0,0,0.8)", fontSize: "20px" }}>
             As we rolled out the new module, I ensured that everyone completed their part in the roll-out successfully and on-schedule. I then did periodic check-ins with each client (through their success managers) and monitored for issues.
           </p>
           <p className="mt-4" style={{ color: "rgba(0,0,0,0.8)", fontSize: "20px" }}>
-            I found that the module was a success with our clients, and at the end of our roll-out I had the team move the module to general availability.
+            Our clients loved the new module, and at the end of our roll-out I had the team move the module to general availability.
           </p>
         </section>
       </div>

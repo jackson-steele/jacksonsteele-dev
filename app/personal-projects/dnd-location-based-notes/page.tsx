@@ -6,7 +6,7 @@ export default function DndLocationNotesPage() {
   return (
     <main className="min-h-screen bg-white">
       <PageHeader
-        title="Delve"
+        title="Dungeon Plotter"
         intro="As a Dungeons & Dragons player, I like to organize my notes spatially. I couldn't find a free tool to do that, so I built one."
         coverPhoto="/images/personal-projects/location-based-notes-card.webp"
       />
@@ -25,13 +25,13 @@ export default function DndLocationNotesPage() {
           Under this system, I spent a lot of time in both prep and gameplay going back and forth between my maps and my notes. It worked, but it was messy.
         </p>
         <p style={{ fontSize: "20px" }}>
-          I created Delve to remove that friction. I upload my maps to Delve, then I create my notes directly on the map as color-coordinated dots, which I can hover over for basic info (e.g. to see that a point is a goblin) and click on for advanced info (e.g. to see how much health the goblin has, or that the goblin is afraid of whistling). Delve has reusable stat-blocks, so I don&apos;t have to type in basic goblin info every time I create a goblin.
+          I created Dungeon Plotter to remove that friction. I upload my maps to Dungeon Plotter, then I create my notes directly on the map as color-coordinated dots, which I can hover over for basic info (e.g. to see that a point is a goblin) and click on for advanced info (e.g. to see how much health the goblin has, or that the goblin is afraid of whistling). Dungeon Plotter has reusable stat-blocks, so I don&apos;t have to type in basic goblin info every time I create a goblin.
         </p>
         <p style={{ fontSize: "20px" }}>
-          So far, I&apos;m using Delve for my ongoing D&D campaign. It&apos;s shortened my planning time and streamlined play time, and I now have a list of features I want to add.
+          So far, I&apos;m using Dungeon Plotter for my ongoing D&D campaign. It&apos;s shortened my planning time and streamlined play time, and I now have a list of features I want to add.
         </p>
         <p style={{ fontSize: "20px" }}>
-          Because of how I&apos;m hosting this website, I&apos;m unable to publish Delve for live use. If you&apos;re interested in using it, feel free to download the source code from GitHub{" "}
+          Because of how I&apos;m hosting this website, I&apos;m unable to publish Dungeon Plotter for live use. If you&apos;re interested in using it, feel free to download the source code from GitHub{" "}
           <a href="https://github.com/jackson-steele/dnd-location-based-notes" target="_blank" rel="noopener noreferrer" className="underline">here</a> and run it on your device!
         </p>
       </div>

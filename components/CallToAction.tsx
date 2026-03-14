@@ -62,7 +62,7 @@ export default function CallToAction() {
         </div>
         <div className="flex flex-col gap-4">
           <TypewriterHireMe />
-          <p style={{ fontSize: "20px", color: "rgba(0,0,0,0.6)" }}>Product Manager roles starting Summer 2026</p>
+          <p style={{ fontSize: "20px", color: "rgba(0,0,0,0.6)" }}>Product Strategy & Marketing roles starting Summer 2026</p>
           <div className="flex flex-wrap gap-3">
             <a
               href="mailto:jacksonsteele8@gmail.com"
