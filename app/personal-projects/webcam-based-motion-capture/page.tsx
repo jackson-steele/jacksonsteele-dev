@@ -21,7 +21,7 @@ export default function WebcamBasedMotionCapturePage() {
     <main className="min-h-screen bg-white">
       <PageHeader
         title="Webcam-Based Motion Capture"
-        intro="An experiment on using computer vision in the future of human-computer interaction."
+        intro="An experiment on using computer vision for the future of human-computer interaction."
         coverPhoto="/images/personal-projects/webcam-based-motion-capture-card.webp"
       />
 
