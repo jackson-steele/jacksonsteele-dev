@@ -22,11 +22,11 @@ const projects: ProjectCard[] = [
     secondaryButton: { label: "Learn more", href: "/personal-projects/heirarchy/about" },
   },
   {
-    image: "/images/personal-projects/location-based-notes-card.webp",
-    title: "Dungeon Plotter",
+    image: "/images/personal-projects/webcam-based-motion-capture-card.webp", // To Do: Add this image
+    title: "Webcam-Based Motion Capture",
     description:
-      "When I play D&D, I like my notes to be organized spatially. I couldn’t find a free tool to do that, so I built one.",
-    primaryButton: { label: "Learn more", href: "/personal-projects/dnd-location-based-notes" },
+      "", // To Do: Write description
+    primaryButton: { label: "Learn more", href: "/personal-projects/webcam-based-motion-capture" },
   },
   {
     image: "/images/personal-projects/statistically-nearest-spider-card.webp",
@@ -34,6 +34,13 @@ const projects: ProjectCard[] = [
     description:
       "It’s commonly claimed that you’re never more than 3 feet away from a spider. I did the math.",
     primaryButton: { label: "Try it out", href: "/personal-projects/statistically-nearest-spider" },
+  },
+  {
+    image: "/images/personal-projects/location-based-notes-card.webp",
+    title: "Dungeon Plotter",
+    description:
+      "When I play D&D, I like my notes to be organized spatially. I couldn’t find a free tool to do that, so I built one.",
+    primaryButton: { label: "Learn more", href: "/personal-projects/dnd-location-based-notes" },
   },
 ];
 
