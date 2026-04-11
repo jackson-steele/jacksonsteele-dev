@@ -22,10 +22,10 @@ const projects: ProjectCard[] = [
     secondaryButton: { label: "Learn more", href: "/personal-projects/heirarchy/about" },
   },
   {
-    image: "/images/personal-projects/webcam-based-motion-capture-card.webp", // To Do: Add this image
+    image: "/images/personal-projects/webcam-based-motion-capture-card.webp",
     title: "Webcam-Based Motion Capture",
     description:
-      "", // To Do: Write description
+      "A series of experiments in using AI pose estimation to control games and interactive experiences.",
     primaryButton: { label: "Learn more", href: "/personal-projects/webcam-based-motion-capture" },
   },
   {
