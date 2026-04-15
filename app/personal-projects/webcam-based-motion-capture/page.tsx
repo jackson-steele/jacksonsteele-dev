@@ -194,7 +194,7 @@ export default function WebcamBasedMotionCapturePage() {
 
         {/* Project 9 */}
         <section className="flex flex-col gap-4">
-          <h3>Project 9: Soar</h3>
+          <h3>Project 9: Updraft</h3>
           <ProjectVideo src="/images/personal-projects/motion-capture/project9.mp4" />
           <p style={{ fontSize: "20px" }}>
             The most unnatural pose in Project 8 was the T-Pose (arms straight out at shoulder height). While I was doing it, it felt much more like I should be flying than triggering a windstorm. I rather liked that idea, and decided to build a game where a player could use their arms to fly.
@@ -208,9 +208,22 @@ export default function WebcamBasedMotionCapturePage() {
           <p style={{ fontSize: "20px" }}>
             Playing this game is surprisingly intuitive. Within a couple minutes, I felt like I&apos;d gotten pretty good at flying the airplane, and my scores were decent. And, more than that, it was fun&mdash;I stopped thinking about the technology behind it, and I lost myself in trying to help my little plane collect some spheres.
           </p>
+          <p style={{ fontSize: "20px" }}>
+            If you&apos;d like to play Updraft, you can download it here (currently only available for Mac with Apple Silicon):
+          </p>
+          <div className="mt-6 flex flex-col gap-3">
+            <a
+              href="https://drive.google.com/file/d/1DEhnEn6T7txOzRsHrRYJPA2NG5BDtvh2/view?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-secondary w-fit"
+            >
+              Download Updraft
+            </a>
+          </div>
         </section>
       </div>
-
+      
       <CallToAction />
       <Footer />
     </main>
