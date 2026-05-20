@@ -144,7 +144,7 @@ export default function HomePage() {
         <div className="relative z-10 flex flex-col items-center text-center gap-6 px-6">
           <h1 style={{ color: "white" }}>Jackson Steele</h1>
           <p className="font-medium" style={{ fontSize: "28px", color: "white" }}>
-            Product Strategy & Marketing
+            Product Management
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <a
@@ -333,7 +333,7 @@ export default function HomePage() {
           <div className="flex flex-col gap-4">
             <TypewriterHireMe />
             <p style={{ fontSize: "20px", color: "rgba(0,0,0,0.6)" }}>
-              Product Strategy & Marketing roles starting Summer 2026
+              Seeking product management roles
             </p>
             <div className="flex flex-wrap gap-3">
               <a
