@@ -6,7 +6,7 @@ import { trackEvent } from "../lib/analytics";
 
 function TypewriterHireMe() {
   const [displayed, setDisplayed] = useState("");
-  const targetText = "Hire Me";
+  const targetText = "Let's Connect";
   const started = useRef(false);
   const ref = useRef<HTMLHeadingElement>(null);
 
@@ -62,7 +62,7 @@ export default function CallToAction() {
         </div>
         <div className="flex flex-col gap-4">
           <TypewriterHireMe />
-          <p style={{ fontSize: "20px", color: "rgba(0,0,0,0.6)" }}>Product Management roles starting Summer 2026</p>
+          <p style={{ fontSize: "20px", color: "rgba(0,0,0,0.6)" }}>Are you a part of the museum industry, a fellow founder, or want to chat?</p>
           <div className="flex flex-wrap gap-3">
             <a
               href="mailto:jacksonsteele8@gmail.com"

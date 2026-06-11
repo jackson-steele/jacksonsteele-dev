@@ -142,10 +142,10 @@ export default function HomePage() {
         />
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 flex flex-col items-center text-center gap-6 px-6">
-          <h1 style={{ color: "white" }}>Jackson Steele</h1>
-          {/* <p className="font-medium" style={{ fontSize: "28px", color: "white" }}>
-            Building a Startup in the Museum Space
-          </p> */}
+          <h1 className="mb-0" style={{ color: "white" }}>Jackson Steele</h1>
+          <p className="font-medium" style={{ fontSize: "28px", color: "white" }}>
+            Building a Startup
+          </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <a
               href="mailto:jacksonsteele8@gmail.com"
