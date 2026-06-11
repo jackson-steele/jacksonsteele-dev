@@ -66,7 +66,7 @@ const desktopCols = [
 
 function TypewriterHireMe() {
   const [displayed, setDisplayed] = useState("");
-  const targetText = "Hire Me";
+  const targetText = "Let's Connect";
   const started = useRef(false);
   const ref = useRef<HTMLHeadingElement>(null);
 
@@ -143,9 +143,9 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 flex flex-col items-center text-center gap-6 px-6">
           <h1 style={{ color: "white" }}>Jackson Steele</h1>
-          <p className="font-medium" style={{ fontSize: "28px", color: "white" }}>
-            Product Management
-          </p>
+          {/* <p className="font-medium" style={{ fontSize: "28px", color: "white" }}>
+            Building a Startup in the Museum Space
+          </p> */}
           <div className="flex flex-wrap gap-3 justify-center">
             <a
               href="mailto:jacksonsteele8@gmail.com"
@@ -318,7 +318,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Hire Me CTA */}
+      {/* CTA */}
       <section className="w-full bg-white py-20 px-6">
         <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-10">
           <div className="flex-shrink-0">
@@ -333,7 +333,7 @@ export default function HomePage() {
           <div className="flex flex-col gap-4">
             <TypewriterHireMe />
             <p style={{ fontSize: "20px", color: "rgba(0,0,0,0.6)" }}>
-              Seeking product management roles
+              Are you a part of the museum industry, a fellow founder, or want to chat?
             </p>
             <div className="flex flex-wrap gap-3">
               <a
