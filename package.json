@@ -10,7 +10,7 @@
     "copy:app": "node scripts/copy-embedded-app.mjs"
   },
   "dependencies": {
-    "next": "15.5.4",
+    "next": "15.5.29",
     "react": "19.1.0",
     "react-dom": "19.1.0"
   },
@@ -21,10 +21,15 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "15.5.4",
-    "sharp": "^0.34.5",
+    "eslint-config-next": "15.5.29",
+    "sharp": "^0.35.5",
     "tailwindcss": "^4",
     "ts-node": "^10",
     "typescript": "^5"
+  },
+  "overrides": {
+    "next": {
+      "postcss": "^8.5.32"
+    }
   }
 }
