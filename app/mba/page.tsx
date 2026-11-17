@@ -8,7 +8,7 @@ export default function MBAPage() {
   return (
     <main className="min-h-screen bg-white">
       <PageHeader
-        title="MBA Student"
+        title="MBA"
         org="Kellogg School of Management"
         intro="At Kellogg, I've focused my education on building products, teams, and cultures that are highly effective and strategically sound."
         coverPhoto="/images/mba/cover-photo.webp"

@@ -2,6 +2,7 @@ import Image from "next/image";
 import PageHeader from "../../../components/PageHeader";
 import CallToAction from "../../../components/CallToAction";
 import Footer from "../../../components/Footer";
+import Link from "next/link";
 
 function ProjectVideo({ src }: { src: string }) {
   return (
@@ -193,7 +194,7 @@ export default function WebcamBasedMotionCapturePage() {
         </section>
 
         {/* Project 9 */}
-        <section className="flex flex-col gap-4">
+        <section id="updraft" className="flex flex-col gap-4">
           <h3>Project 9: Updraft</h3>
           <ProjectVideo src="/images/personal-projects/motion-capture/project9.mp4" />
           <p style={{ fontSize: "20px" }}>
@@ -209,7 +210,7 @@ export default function WebcamBasedMotionCapturePage() {
             Playing this game is surprisingly intuitive. Within a couple minutes, I felt like I&apos;d gotten pretty good at flying the airplane, and my scores were decent. And, more than that, it was fun&mdash;I stopped thinking about the technology behind it, and I lost myself in trying to help my little plane collect some spheres.
           </p>
           <p style={{ fontSize: "20px" }}>
-            If you&apos;d like to play Updraft, you can download it here (currently only available for Mac with Apple Silicon):
+            If you&apos;d like to play this version of Updraft, you can download it here (only available for Mac with Apple Silicon):
           </p>
           <div className="mt-6 flex flex-col gap-3">
             <a
@@ -221,6 +222,12 @@ export default function WebcamBasedMotionCapturePage() {
               Download Updraft
             </a>
           </div>
+            <p style={{ fontSize: "20px" }}>
+            If you&apos;d like to learn more about what happened next with Updraft or play either the updated version or the VR/AR version, you can find more information{" "}
+            <Link href="/updraft-game/" className="underline">
+              here
+            </Link>{"."}
+          </p>
         </section>
       </div>
       

@@ -14,8 +14,8 @@ const highlights = [
     lightbox: false,
   },
   {
-    src: "/images/main/highlight-cards/astrophysicist.webp",
-    alt: "Astrophysicist",
+    src: "/images/main/highlight-cards/scientist-cover-photo.webp",
+    alt: "Scientist",
     href: "/astrophysics",
     lightbox: false,
   },
@@ -26,27 +26,27 @@ const highlights = [
     lightbox: false,
   },
   {
-    src: "/images/main/highlight-cards/friends.webp",
-    alt: "Socially Competent",
-    href: null,
-    lightbox: true,
+    src: "/images/main/highlight-cards/museum-cover-photo.webp",
+    alt: "Museum AI Matching Platform",
+    href: "/museum-business",
+    lightbox: false,
+  },
+  {
+    src: "/images/main/highlight-cards/updraft-cover-photo.webp",
+    alt: "Updraft",
+    href: "/updraft-game",
+    lightbox: false,
+  },
+  {
+    src: "/images/main/highlight-cards/kellogg.webp",
+    alt: "MBA Class Projects",
+    href: "/mba#project-1-creating-a-gtm-plan-for-ai-startup-hidenn-ai",
+    lightbox: false,
   },
   {
     src: "/images/main/highlight-cards/personal-projects.webp",
     alt: "Personal Projects",
     href: "/personal-projects",
-    lightbox: false,
-  },
-  {
-    src: "/images/main/highlight-cards/prd-pitch-deck.webp",
-    alt: "PRD + Pitch Deck",
-    href: "/mba#project-2-neutrino",
-    lightbox: false,
-  },
-  {
-    src: "/images/main/highlight-cards/go-to-market-plan.webp",
-    alt: "Go To Market Plan",
-    href: "/mba#project-1-creating-a-gtm-plan-for-ai-startup-hidenn-ai",
     lightbox: false,
   },
 ];
@@ -59,14 +59,14 @@ const logos = [
 ];
 
 const desktopCols = [
-  [highlights[0], highlights[3], highlights[6]],
-  [highlights[1], highlights[4]],
+  [highlights[0], highlights[3], highlights[4]],
+  [highlights[1], highlights[6]],
   [highlights[2], highlights[5]],
 ];
 
 function TypewriterHireMe() {
   const [displayed, setDisplayed] = useState("");
-  const targetText = "Let's Connect";
+  const targetText = "Hire Me";
   const started = useRef(false);
   const ref = useRef<HTMLHeadingElement>(null);
 
@@ -144,7 +144,7 @@ export default function HomePage() {
         <div className="relative z-10 flex flex-col items-center text-center gap-6 px-6">
           <h1 className="mb-0" style={{ color: "white" }}>Jackson Steele</h1>
           <p className="font-medium" style={{ fontSize: "28px", color: "white" }}>
-            Building a Startup
+            Product Manager
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <a
@@ -181,14 +181,14 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-12 items-start">
           <div className="flex-1">
             <h1 className="font-extrabold tracking-[-0.02em]" style={{ fontSize: "48px", lineHeight: "1.3" }}>
-              I think like an astrophysicist, build like an engineer, and somehow still get invited to lunch
+              I think like a scientist, build like an engineer, and can explain what I do at work to my grandparents.
             </h1>
           </div>
           <div className="flex-1 flex flex-col gap-8">
             <div>
-              <h5>Astrophysics Problem-Solver</h5>
+              <h5>Think like a Scientist</h5>
               <p style={{ color: "rgba(0,0,0,0.7)", fontSize: "20px" }}>
-                As an astrophysicist, I learned to tackle galaxy-scale problems by deconstructing them into bite-sized chunks that I can solve using data and experiments.
+                As a scientist, I learned to tackle difficult problems by deconstructing them into bite-sized chunks that I can solve using data and experiments.
               </p>
             </div>
             <div>
@@ -198,9 +198,9 @@ export default function HomePage() {
               </p>
             </div>
             <div>
-              <h5>Will Ask About Your Weekend</h5>
+              <h5>Can Explain What I Do</h5>
               <p style={{ color: "rgba(0,0,0,0.7)", fontSize: "20px" }}>
-                I love being around people, and I&apos;ve focused my MBA curriculum on how to create strong cultures. I remember people&apos;s interests and their kids&apos; names, and I&apos;ve even been invited to parties once or twice.
+                I&apos;ve taught physics to high schoolers, astronomy to college students, and onboarded a non-technical manager to a technical team. I can translate seamlessly between technical and non-technical audiences.
               </p>
             </div>
           </div>
@@ -333,7 +333,7 @@ export default function HomePage() {
           <div className="flex flex-col gap-4">
             <TypewriterHireMe />
             <p style={{ fontSize: "20px", color: "rgba(0,0,0,0.6)" }}>
-              Are you a part of the museum industry, a fellow founder, or want to chat?
+              Seeking a Seattle-based Product Manager role.<br/>Available immediately.
             </p>
             <div className="flex flex-wrap gap-3">
               <a
