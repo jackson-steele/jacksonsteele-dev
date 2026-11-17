@@ -7,3 +7,9 @@ version-2.0-instructions/
 # Environment variables
 .env.local
 .env
+
+# Local Claude Code settings
+.claude/
+
+# TypeScript incremental build info
+*.tsbuildinfo
