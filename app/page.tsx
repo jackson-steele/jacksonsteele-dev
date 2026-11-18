@@ -4,50 +4,58 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
 import Footer from "../components/Footer";
+import HighlightTile, { type Highlight } from "../components/HighlightTile";
 import { trackEvent } from "../lib/analytics";
 
-const highlights = [
+const highlights: Highlight[] = [
   {
     src: "/images/main/highlight-cards/software-engineer.webp",
-    alt: "Software Engineer",
+    title: "Software Engineer",
+    subtitle: "Amazon Prime Air",
     href: "/amazon",
-    lightbox: false,
+    teaser: "At Amazon, I learned to ship software quickly and reliably, even when deadlines were tight and we were under-resourced, and I grew from a coder into a builder.",
   },
   {
     src: "/images/main/highlight-cards/scientist-cover-photo.webp",
-    alt: "Scientist",
+    title: "Scientist",
+    subtitle: "Brigham Young University",
     href: "/astrophysics",
-    lightbox: false,
+    teaser: "Why do I call myself an astrophysicist? The short answer is that I studied astrophysics in college, and I’m a coauthor on several astrophysics papers.",
   },
   {
     src: "/images/main/highlight-cards/product-manager-intern.webp",
-    alt: "Product Manager Intern",
+    title: "Product Manager Intern",
+    subtitle: "IDeaS Revenue Solutions",
     href: "/ideas",
-    lightbox: false,
+    teaser: "At IDeaS, I experienced different phases of the product development process through four intern projects, from initial research to a phased launch with enterprise clients.",
   },
   {
     src: "/images/main/highlight-cards/museum-cover-photo.webp",
-    alt: "Museum AI Matching Platform",
+    title: "Small Museum Business",
+    subtitle: "User Research & Experimentation",
     href: "/museum-business",
-    lightbox: false,
+    teaser: "At the end of my MBA, I decided to try out entrepreneurship. I decided I wanted my customers to be small museums, and I used experiments to test my hypotheses before building.",
   },
   {
     src: "/images/main/highlight-cards/updraft-cover-photo.webp",
-    alt: "Updraft",
+    title: "Updraft",
+    subtitle: "Motion-Capture Video Game",
     href: "/updraft-game",
-    lightbox: false,
+    teaser: "Updraft is a motion-capture game where you fly a plane with your arms. I built it, playtested it, rebuilt it, and then ported it to VR/AR for Meta Quest.",
   },
   {
     src: "/images/main/highlight-cards/kellogg.webp",
-    alt: "MBA Class Projects",
+    title: "MBA Class Projects",
+    subtitle: "PRD, Pitch Deck, GTM plan, etc.",
     href: "/mba#project-1-creating-a-gtm-plan-for-ai-startup-hidenn-ai",
-    lightbox: false,
+    teaser: "In my Commercializing Innovations class, I, along with two other Kellogg students, worked with startup HIDENN-AI to create their GTM plan.",
   },
   {
     src: "/images/main/highlight-cards/personal-projects.webp",
-    alt: "Personal Projects",
+    title: "Personal Projects",
+    subtitle: "I’m always building something! Check out some of my favorites",
     href: "/personal-projects",
-    lightbox: false,
+    teaser: "I’m always building things that I either find useful, interesting, or funny. Most of my projects don’t make it here, but come back to see what I’ve added!",
   },
 ];
 
@@ -108,27 +116,6 @@ function TypewriterHireMe() {
 }
 
 export default function HomePage() {
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [lightboxSrc, setLightboxSrc] = useState("");
-
-  function openLightbox(src: string) {
-    setLightboxSrc(src);
-    setLightboxOpen(true);
-    trackEvent("lightbox_open", { image: src });
-  }
-  function closeLightbox() {
-    setLightboxOpen(false);
-    setLightboxSrc("");
-  }
-
-  useEffect(() => {
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape") closeLightbox();
-    }
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, []);
-
   return (
     <main className="min-h-screen bg-white">
       {/* Hero */}
@@ -245,75 +232,29 @@ export default function HomePage() {
           <div className="hidden md:flex gap-4">
             {desktopCols.map((col, ci) => (
               <div key={ci} className="flex-1 flex flex-col gap-4">
-                {col.map((tile, i) => {
-                  const img = (
-                    <Image
-                      src={tile.src}
-                      alt={tile.alt}
-                      width={400}
-                      height={300}
-                      className="w-full h-auto rounded-2xl object-cover"
-                    />
-                  );
-                  if (tile.lightbox) {
-                    return (
-                      <button
-                        key={i}
-                        onClick={() => { openLightbox(tile.src); trackEvent("highlight_click", { card: tile.alt }); }}
-                        className="active:scale-[0.98] transition-transform rounded-2xl overflow-hidden cursor-pointer text-left w-full"
-                      >
-                        {img}
-                      </button>
-                    );
-                  }
-                  return (
-                    <Link
-                      key={i}
-                      href={tile.href!}
-                      className="active:scale-[0.98] transition-transform rounded-2xl overflow-hidden block"
-                      onClick={() => trackEvent("highlight_click", { card: tile.alt })}
-                    >
-                      {img}
-                    </Link>
-                  );
-                })}
+                {col.map((tile) => (
+                  <HighlightTile
+                    key={tile.href}
+                    tile={tile}
+                    width={400}
+                    height={300}
+                    onClick={() => trackEvent("highlight_click", { card: tile.title })}
+                  />
+                ))}
               </div>
             ))}
           </div>
           {/* Mobile stacked */}
           <div className="flex flex-col gap-4 md:hidden">
-            {highlights.map((tile, i) => {
-              const img = (
-                <Image
-                  src={tile.src}
-                  alt={tile.alt}
-                  width={800}
-                  height={500}
-                  className="w-full h-auto rounded-2xl object-cover"
-                />
-              );
-              if (tile.lightbox) {
-                return (
-                  <button
-                    key={i}
-                    onClick={() => { openLightbox(tile.src); trackEvent("highlight_click", { card: tile.alt }); }}
-                    className="active:scale-[0.98] transition-transform rounded-2xl overflow-hidden cursor-pointer w-full text-left"
-                  >
-                    {img}
-                  </button>
-                );
-              }
-              return (
-                <Link
-                  key={i}
-                  href={tile.href!}
-                  className="active:scale-[0.98] transition-transform rounded-2xl overflow-hidden block"
-                  onClick={() => trackEvent("highlight_click", { card: tile.alt })}
-                >
-                  {img}
-                </Link>
-              );
-            })}
+            {highlights.map((tile) => (
+              <HighlightTile
+                key={tile.href}
+                tile={tile}
+                width={800}
+                height={500}
+                onClick={() => trackEvent("highlight_click", { card: tile.title })}
+              />
+            ))}
           </div>
         </div>
       </section>
@@ -359,32 +300,6 @@ export default function HomePage() {
 
       <Footer />
 
-      {/* Lightbox */}
-      {lightboxOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80"
-          onClick={closeLightbox}
-        >
-          <div
-            className="relative"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              onClick={closeLightbox}
-              className="absolute top-2 right-4 text-white text-3xl font-bold z-10"
-              aria-label="Close"
-            >
-              ×
-            </button>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={lightboxSrc}
-              alt="Lightbox"
-              style={{ maxWidth: "90vw", maxHeight: "90vh", display: "block", borderRadius: "1rem" }}
-            />
-          </div>
-        </div>
-      )}
     </main>
   );
 }
