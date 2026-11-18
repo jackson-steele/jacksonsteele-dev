@@ -60,10 +60,10 @@ const highlights: Highlight[] = [
 ];
 
 const logos = [
-  { src: "/images/main/logos/kellogg.webp", alt: "Kellogg School of Management", href: "/mba" },
-  { src: "/images/main/logos/byu.webp", alt: "Brigham Young University", href: "/astrophysics" },
-  { src: "/images/main/logos/ideas.webp", alt: "IDeaS Revenue Solutions", href: "/ideas" },
-  { src: "/images/main/logos/amazon.webp", alt: "Amazon", href: "/amazon" },
+  { src: "/images/main/logos/kellogg.webp", alt: "Kellogg School of Management", role: "MBA", href: "/mba" },
+  { src: "/images/main/logos/byu.webp", alt: "Brigham Young University", role: "Astrophysics", href: "/astrophysics" },
+  { src: "/images/main/logos/ideas.webp", alt: "IDeaS Revenue Solutions", role: "Product Management Intern", href: "/ideas" },
+  { src: "/images/main/logos/amazon.webp", alt: "Amazon", role: "Software Engineer", href: "/amazon" },
 ];
 
 const desktopCols = [
@@ -198,23 +198,35 @@ export default function HomePage() {
       <section className="w-full bg-gray-50 py-16 px-6">
         <div className="max-w-5xl mx-auto">
           <p className="text-center mb-10" style={{ fontSize: "20px", color: "rgba(0,0,0,0.6)" }}>
-            Where I&apos;ve been. Click to learn more.
+            Where I&apos;ve been.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {logos.map((logo) => (
               <Link
                 key={logo.href}
                 href={logo.href}
-                className="flex items-center justify-center active:scale-[0.98] transition-transform"
+                className="group flex flex-col items-center text-center rounded-2xl bg-white border border-black/[0.06] px-4 pt-6 pb-5 hover:border-black/15 hover:shadow-[0_6px_24px_rgba(0,0,0,0.06)] active:scale-[0.98] transition"
                 onClick={() => trackEvent("logo_click", { org: logo.alt })}
               >
-                <Image
-                  src={logo.src}
-                  alt={logo.alt}
-                  width={160}
-                  height={80}
-                  className="object-contain max-h-16 grayscale hover:grayscale-0 transition-all"
-                />
+                <div className="h-16 flex items-center justify-center">
+                  <Image
+                    src={logo.src}
+                    alt={logo.alt}
+                    width={160}
+                    height={80}
+                    className="object-contain max-h-16 grayscale group-hover:grayscale-0 group-focus-visible:grayscale-0 transition-all"
+                  />
+                </div>
+                <span className="mt-4 font-semibold text-black leading-snug" style={{ fontSize: "17px" }}>
+                  {logo.role}
+                </span>
+                <span
+                  className="mt-auto pt-2 inline-flex items-center gap-1 font-medium text-black/50 group-hover:text-black transition-colors"
+                  style={{ fontSize: "15px" }}
+                >
+                  See more
+                  <span className="transition-transform group-hover:translate-x-1">→</span>
+                </span>
               </Link>
             ))}
           </div>
